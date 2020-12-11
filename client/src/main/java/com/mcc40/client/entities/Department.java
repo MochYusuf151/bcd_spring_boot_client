@@ -9,12 +9,12 @@ import lombok.Data;
 
 /**
  *
- * @author aqira
+ *
  */
 @Data
-public class Job {
-    private String id,
-            title;
-    private int maxSalary,
-            minSalary;
+public class Department {
+    private Integer id;
+    private String name;
+    private Integer managerId;
+    private Integer locationId;
 }

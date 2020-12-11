@@ -31,20 +31,28 @@ public class JobService {
 
     @Value("${api.uri}")
     private String url;
-    private String uri = url + "job";
-    
-    public List<Job> getAll() {
+
+    public List<Job> search(String keyword) {
+        String uri = this.url + "job";
+        if (keyword != null) {
+            uri += "?keyword=" + keyword;
+        }
         ResponseEntity<List<Job>> response = restTemplate.exchange(uri,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Job>>() {
         });
         for (Job job : response.getBody()) {
-            System.out.print(job.getJobId());
-            System.out.print(job.getJobTitle());
+            System.out.print(job.getId());
+            System.out.print(job.getTitle());
             System.out.print(job.getMaxSalary());
             System.out.println(job.getMinSalary());
         }
         return response.getBody();
+    }
+
+    public String insert(Job job) {
+//        String url = this.url + 
+        return "";
     }
 }

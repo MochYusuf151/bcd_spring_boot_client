@@ -9,12 +9,10 @@ import lombok.Data;
 
 /**
  *
- * @author aqira
+ * @author Mochamad Yusuf
  */
 @Data
-public class Job {
-    private String id,
-            title;
-    private int maxSalary,
-            minSalary;
+public class Region {
+    private Integer id;
+    private String name;
 }

@@ -8,6 +8,7 @@ package com.mcc40.client.controllers;
 import com.mcc40.client.entities.Job;
 import com.mcc40.client.services.JobService;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +30,16 @@ public class JobController {
         this.service = service;
     }
 
+//    @GetMapping("")
+//    public String index(Model model) {
+//        List<Job> jobs = service.getAll();
+//        model.addAttribute("jobs", jobs);
+//        return "index";
+//    }
+
     @GetMapping("")
-    public String index(Model model) {
-        List<Job> jobs = service.getAll();
+    public String search(String keyword, Model model) {
+        List<Job> jobs = service.search(keyword);
         model.addAttribute("jobs", jobs);
         return "index";
     }

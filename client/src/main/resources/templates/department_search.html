@@ -6,26 +6,32 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Jobs</title>
+        <title>Departments</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <form action="../department" method="get">
+            <input type="text" id="keyword" name="keyword"/>
+            <button type="submit">
+                Search
+            </button>  
+        </form>
+
+        <br/>
+        <br/>
+
         <table border="1">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Min</th>
-                    <th>Salary</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="job:${jobs}">
-                    <td th:text="${job.id}"></td>
-                    <td th:text="${job.title}"></td>
-                    <td th:text="${job.minSalary}"></td>
-                    <td th:text="${job.maxSalary}"></td>
+                <tr th:each="department:${departments}">
+                    <td th:text="${department.id}"></td>
+                    <td th:text="${department.name}"></td>
                 </tr>
             </tbody>
         </table>
