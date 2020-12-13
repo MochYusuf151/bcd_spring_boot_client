@@ -47,10 +47,7 @@ public class DepartmentService {
                 new ParameterizedTypeReference<List<Department>>() {
         });
         for (Department department : response.getBody()) {
-            System.out.print(department.getId());
-            System.out.print(department.getName());
-//            System.out.print(department.getManager_id());
-//            System.out.println(department.getLocation_id());
+            System.out.print(department);
         }
         return response.getBody();
     }
@@ -119,9 +116,9 @@ public class DepartmentService {
 
         System.out.println(departmentJson.toString());
 
-        ResponseEntity<String> response = restTemplate.postForEntity(uri, request, String.class);
+        restTemplate.put(uri, request);
 
-        return response.getBody();
+        return "inserted";
     }
     
     public String deleteById(Integer id) {
