@@ -42,7 +42,7 @@ public class UserController {
             Model model) {
         if (password.equals(retypePassword)) {
             service.submitNewPassword(password, verificationCode);
-            return "reset_password";
+            return "reset_confirmed";
         } else {
             return "error";
         }
