@@ -5,7 +5,6 @@
  */
 package com.mcc40.client.services;
 
-import com.mcc40.client.entities.ChangePasswordData;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,11 +20,11 @@ import org.springframework.web.client.RestTemplate;
  * @author Mochamad Yusuf
  */
 @Service
-public class ChangePasswordService {
+public class UserService {
     RestTemplate restTemplate;
 
     @Autowired
-    public ChangePasswordService(RestTemplate restTemplate) {
+    public UserService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
     

@@ -5,7 +5,7 @@
  */
 package com.mcc40.client.controllers;
 
-import com.mcc40.client.services.ChangePasswordService;
+import com.mcc40.client.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("users")
 public class UserController {
 
-    ChangePasswordService service;
+    UserService service;
 
     @Autowired
-    public UserController(ChangePasswordService service) {
+    public UserController(UserService service) {
         this.service = service;
     }
 
