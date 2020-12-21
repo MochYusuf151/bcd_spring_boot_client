@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Mochamad Yusuf
  */
 @Controller
-@RequestMapping("users")
+@RequestMapping("user")
 public class UserController {
 
     UserService service;
@@ -27,6 +27,11 @@ public class UserController {
     @Autowired
     public UserController(UserService service) {
         this.service = service;
+    }
+    
+    @GetMapping("auth")
+    public String auth() {
+        return "auth";
     }
 
     @GetMapping("forgot-password/{verificationCode}")

@@ -1,0 +1,36 @@
+
+body{
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+._wrapper{
+    height: 100vh;
+    display: flex;
+}
+
+.form-group .required:after {
+    content: "*";
+    margin-left: 5px;
+    color: #ff304f;
+}
+
+.login-card{
+    border-radius: 10px !important;
+    box-shadow: 2px 2px 20px rgba(0,0,0,0.25);
+}
+
+.app-title{
+    font-weight: 500;
+}
+
+.secondary-title{
+    font-weight: 300;
+}
+
+.navbar{
+    box-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+}
+
+footer {
+    box-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+}

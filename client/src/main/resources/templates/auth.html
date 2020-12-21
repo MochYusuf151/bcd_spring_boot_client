@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>MII Bootcamp App - Auth</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-light bg-light">
+                <a class="navbar-brand" href="#">Bootcamp App</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation" wfd-id="106">
+                    <span class="navbar-toggler-icon" wfd-id="81"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarsExample03" wfd-id="72">
+                    <ul class="navbar-nav mr-auto" wfd-id="74">
+                        <li class="nav-item active" wfd-id="79">
+                            <a class="nav-link" href="#">Home <span class="sr-only" wfd-id="80">(current)</span></a>
+                        </li>
+                        <li class="nav-item" wfd-id="78">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item" wfd-id="77">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                        <li class="nav-item dropdown" wfd-id="75">
+                            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown03" wfd-id="76">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-md-0" wfd-id="73">
+                        <input class="form-control" type="text" placeholder="Search" wfd-id="96">
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <div class="_wrapper">
+            <!-- Fixed navbar -->
+
+            <div class="container">
+                <div class="row h-100">
+                    <div class="col-md-6 mx-auto my-auto">
+                        <div class="card p-4 login-card">
+                            <div class="card-body">
+                                <div class="text-center mb-4">
+                                    <h2 class="app-title">Bootcamp App</h2>
+                                    <h5 class="secondary-title">Sign in with your account</h5>
+                                </div>
+
+                                <form class="needs-validation" novalidate>
+                                    <div class="form-group">
+                                        <label for="email" class="required">Email Address</label>
+                                        <input type="email" class ="form-control" name="email" id="email" placeholder="Enter email" required>
+                                        <div class="invalid-feedback">Please enter your email</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password" class="required">Password</label>
+                                        <input type="password" class ="form-control" name="password" id="password" placeholder="Enter password" required>
+                                        <div class="invalid-feedback">Please enter your password</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-primary w-100" type="submit">Submit</button>
+                                    </div>
+                                    <div class="text-right">
+                                        <a class="btn-link text-primary">forgot password?</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer class="bg-dark p-3">
+            <div class="container">
+                <p class="text-light">© Metrodata Coding Camp</p>
+            </div>
+        </footer>
+
+
+        <script src="/js/form-validation.js"></script>
+    </body>
+</html>
