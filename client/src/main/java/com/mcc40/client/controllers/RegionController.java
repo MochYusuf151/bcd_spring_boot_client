@@ -31,17 +31,11 @@ public class RegionController {
         this.service = service;
     }
 
-//    @GetMapping("")
-//    public String index(Model model) {
-//        List<Region> regions = service.getAll();
-//        model.addAttribute("regions", regions);
-//        return "index";
-//    }
     @GetMapping("")
     public String search(String keyword, Model model) {
         List<Region> regions = service.search(keyword);
         model.addAttribute("regions", regions);
-        return "region_search";
+        return "region_table";
     }
 
     @GetMapping("modify")

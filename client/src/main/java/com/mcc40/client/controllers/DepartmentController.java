@@ -41,7 +41,7 @@ public class DepartmentController {
     public String search(String keyword, Model model) {
         List<Department> departments = service.search(keyword);
         model.addAttribute("departments", departments);
-        return "department_search";
+        return "department_table";
     }
 
     @GetMapping("modify")

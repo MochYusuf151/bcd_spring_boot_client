@@ -30,8 +30,27 @@ public class UserController {
     }
     
     @GetMapping("auth")
-    public String auth() {
+    public String auth(Model model) {
+        model.addAttribute("account", "admin");
         return "auth";
+    }
+    
+    @GetMapping("login")
+    public String login(Model model) {
+        model.addAttribute("html_title", "Login page");
+        return "login";
+    }
+    
+    @GetMapping("table")
+    public String table(Model model) {
+        model.addAttribute("html_title", "Tables page");
+        return "tables";
+    }
+    
+    @GetMapping("")
+    public String index(Model model) {
+        model.addAttribute("html_title", "Index page");
+        return "index";
     }
 
     @GetMapping("forgot-password/{verificationCode}")

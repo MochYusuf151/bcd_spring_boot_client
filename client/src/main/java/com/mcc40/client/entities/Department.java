@@ -16,5 +16,7 @@ public class Department {
     private Integer id;
     private String name;
     private Integer managerId;
+    private String manager;
     private Integer locationId;
+    private String location;
 }
