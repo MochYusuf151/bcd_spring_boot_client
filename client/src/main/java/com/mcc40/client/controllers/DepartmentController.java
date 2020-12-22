@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -30,23 +30,30 @@ public class DepartmentController {
     public DepartmentController(DepartmentService service) {
         this.service = service;
     }
-
-//    @GetMapping("")
-//    public String index(Model model) {
-//        List<Department> departments = service.getAll();
-//        model.addAttribute("departments", departments);
-//        return "index";
-//    }
+    
     @GetMapping("")
     public String search(String keyword, Model model) {
         List<Department> departments = service.search(keyword);
         model.addAttribute("departments", departments);
-        return "department_table";
+        return "department/department_table";
     }
 
+    @GetMapping("edit")
+    public String openEditPage(Model model) {
+        return "department/department_edit";
+    }
+    
+    @PostMapping("modify")
+    public String modifyDepartment(@RequestParam("id") Integer id, Model model) {
+        System.out.println("modify param: "  + id);
+        Department department = service.getById(id).get(0);
+        model.addAttribute("department", department);
+        return "department/department_modify";
+    }
+    
     @GetMapping("modify")
     public String openSavePage(Model model) {
-        return "department_edit";
+        return "department/department_modify";
     }
 
     @PostMapping("modify/post")

@@ -51,6 +51,23 @@ public class DepartmentService {
         }
         return response.getBody();
     }
+    
+    
+    public List<Department> getById(Integer id) {
+        String uri = this.url + "departments";
+        if (id != null) {
+            uri += "?id=" + id;
+        }
+        ResponseEntity<List<Department>> response = restTemplate.exchange(uri,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Department>>() {
+        });
+        for (Department department : response.getBody()) {
+            System.out.print(department);
+        }
+        return response.getBody();
+    }
 
     public String savePost(Department department) {
         String uri = this.url + "departments";

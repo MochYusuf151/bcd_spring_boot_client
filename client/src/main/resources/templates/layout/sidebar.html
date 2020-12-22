@@ -129,3 +129,69 @@ and open the template in the editor.
 
 </ul>
 <!-- End of Sidebar -->
+
+
+
+
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+    th:fragment="sidebar_content">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon">
+            <i class="fas fa-database"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">HR Client</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Tables
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <span>Departments</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="department">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Table</span>
+                </a>
+                <a class="collapse-item" href="department/modify">
+                    <i class="fas fa-fw fa-edit"></i>
+                    <span>Edit</span>
+                </a>
+                <a class="collapse-item" href="department/delete">
+                    <i class="fas fa-fw fa-trash"></i>
+                    <span>Delete</span>
+                </a>
+            </div>
+        </div>
+    </li>
+
+
+</ul>
+<!-- End of Sidebar -->

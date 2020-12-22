@@ -32,31 +32,31 @@ public class UserController {
     @GetMapping("auth")
     public String auth(Model model) {
         model.addAttribute("account", "admin");
-        return "auth";
+        return "user/auth";
     }
     
     @GetMapping("login")
     public String login(Model model) {
         model.addAttribute("html_title", "Login page");
-        return "login";
+        return "sbadmin/login";
     }
     
     @GetMapping("table")
     public String table(Model model) {
         model.addAttribute("html_title", "Tables page");
-        return "tables";
+        return "sbadmin/tables";
     }
     
     @GetMapping("")
     public String index(Model model) {
         model.addAttribute("html_title", "Index page");
-        return "index";
+        return "sbadmin/index";
     }
 
     @GetMapping("forgot-password/{verificationCode}")
     public String forgotPassword(@PathVariable String verificationCode, Model model) {
         model.addAttribute("verificationCode", verificationCode);
-        return "reset_password";
+        return "user/reset_password";
     }
 
     @PostMapping("reset-password/{verificationCode}")
@@ -66,7 +66,7 @@ public class UserController {
             Model model) {
         if (password.equals(retypePassword)) {
             service.submitNewPassword(password, verificationCode);
-            return "reset_confirmed";
+            return "user/reset_confirmed";
         } else {
             return "error";
         }

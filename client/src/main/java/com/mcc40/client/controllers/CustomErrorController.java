@@ -32,7 +32,7 @@ public class CustomErrorController implements ErrorController {
                 return "error_page/error_500";
             }
         }
-        return "error";
+        return "error_page/error";
     }
 
     @Override

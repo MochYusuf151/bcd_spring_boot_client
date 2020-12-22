@@ -35,12 +35,12 @@ public class RegionController {
     public String search(String keyword, Model model) {
         List<Region> regions = service.search(keyword);
         model.addAttribute("regions", regions);
-        return "region_table";
+        return "region/region_table";
     }
 
     @GetMapping("modify")
     public String openSavePage(Model model) {
-        return "region_edit";
+        return "region/region_edit";
     }
 
     @PostMapping("modify/post")
