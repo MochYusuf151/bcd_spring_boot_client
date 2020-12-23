@@ -43,7 +43,7 @@ public class RegionController {
         return "region/region_edit";
     }
 
-    @PostMapping("modify/post")
+    @PostMapping("post")
     public String savePost(String id, String name, Model model) {
         System.out.println("[POST] region: " + id + " | " + name);
         Region region = new Region();
@@ -55,11 +55,11 @@ public class RegionController {
         return "redirect:localhost:8082/region/modify";
     }
 
-    @PostMapping("modify/put")
-    public String savePut(String id, String name, String manager_id, String location_id, Model model) {
+    @PostMapping("update")
+    public String savePut(Integer id, String name, Model model) {
         System.out.println("[PUT] region: " + id + " | " + name);
         Region region = new Region();
-        region.setId(Integer.parseInt(id));
+        region.setId(id);
         if (!name.equals("")) {
             region.setName(name);
         }
@@ -69,8 +69,8 @@ public class RegionController {
         return "redirect:localhost:8082/region/modify";
     }
     
-    @PostMapping("modify/delete")
-    public String savePut(String id, Model model) {
+    @PostMapping("delete")
+    public String delete(String id, Model model) {
         System.out.println("[DELETE] region: " +  id);
         
         service.deleteById(Integer.parseInt(id));

@@ -56,33 +56,33 @@ public class DepartmentController {
         return "department/department_modify";
     }
 
-    @PostMapping("modify/post")
-    public String savePost(String id, String name, String manager_id, String location_id, Model model) {
-        System.out.println("[POST] department: " + id + " | " + name + " | " + manager_id + " | " + location_id);
+    @PostMapping("post")
+    public String savePost(String id, String name, String manager, String location, Model model) {
+        System.out.println("[POST] department: " + id + " | " + name + " | " + manager + " | " + location);
         Department department = new Department();
         department.setId(Integer.parseInt(id));
         department.setName(name);
-        department.setManagerId(Integer.parseInt(manager_id));
-        department.setLocationId(Integer.parseInt(location_id));
+        department.setManagerId(Integer.parseInt(manager));
+        department.setLocationId(Integer.parseInt(location));
 
         System.out.println(department);
         service.savePost(department);
         return "redirect:localhost:8082/department/modify";
     }
 
-    @PostMapping("modify/put")
-    public String savePut(String id, String name, String manager_id, String location_id, Model model) {
-        System.out.println("[PUT] department: " + id + " | " + name + " | " + manager_id + " | " + location_id);
+    @PostMapping("update")
+    public String savePut(String id, String name, String manager, String location, Model model) {
+        System.out.println("[PUT] department: " + id + " | " + name + " | " + manager + " | " + location);
         Department department = new Department();
         department.setId(Integer.parseInt(id));
         if (!name.equals("")) {
             department.setName(name);
         }
-        if (!manager_id.equals("")) {
-            department.setManagerId(Integer.parseInt(manager_id));
+        if (!manager.equals("")) {
+            department.setManagerId(Integer.parseInt(manager));
         }
-        if (!location_id.equals("")) {
-            department.setLocationId(Integer.parseInt(location_id));
+        if (!location.equals("")) {
+            department.setLocationId(Integer.parseInt(location));
         }
 
         System.out.println(department);
@@ -90,8 +90,8 @@ public class DepartmentController {
         return "redirect:localhost:8082/department/modify";
     }
     
-    @PostMapping("modify/delete")
-    public String savePut(String id, Model model) {
+    @PostMapping("delete")
+    public String delete(String id, Model model) {
         System.out.println("[DELETE] department: " +  id);
         
         service.deleteById(Integer.parseInt(id));
