@@ -18,6 +18,8 @@ import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -33,11 +35,11 @@ public class RegionService {
         this.restTemplate = restTemplate;
     }
 
-    @Value("${api.uri}")
+    @Value("${api.uri}/regions")
     private String url;
 
     public List<Region> search(String keyword) {
-        String uri = this.url + "regions";
+        String uri = this.url;
         if (keyword != null) {
             uri += "?keyword=" + keyword;
         }
@@ -56,11 +58,13 @@ public class RegionService {
     }
 
     public String savePost(Region region) {
-        String uri = this.url + "regions";
+        String uri = this.url;
 
         // Http Header
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        
+         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         // Json Object
         JSONObject regionJson = new JSONObject();
@@ -80,7 +84,7 @@ public class RegionService {
     }
 
     public String savePut(Region region) {
-        String uri = this.url + "regions";
+        String uri = this.url;
 
         // Http Header
         HttpHeaders headers = new HttpHeaders();
@@ -101,12 +105,13 @@ public class RegionService {
         System.out.println(regionJson.toString());
 
         restTemplate.put(uri, request);
-
+        
+        System.out.println("put success");
         return "Success";
     }
     
     public String deleteById(Integer id) {
-        String uri = this.url + "regions?id=" + id;
+        String uri = this.url + "?id=" + id;
 
         restTemplate.delete(uri, String.class);
 

@@ -46,11 +46,7 @@ const Toast = Swal.mixin({
     position: 'top-right',
     showConfirmButton: false,
     timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
+    timerProgressBar: true
 })
 
 function deleteToast() {

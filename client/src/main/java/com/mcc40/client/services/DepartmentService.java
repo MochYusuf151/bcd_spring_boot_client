@@ -33,11 +33,11 @@ public class DepartmentService {
         this.restTemplate = restTemplate;
     }
 
-    @Value("${api.uri}")
+    @Value("${api.uri}/departments")
     private String url;
 
     public List<Department> search(String keyword) {
-        String uri = this.url + "departments";
+        String uri = this.url;
         if (keyword != null) {
             uri += "?keyword=" + keyword;
         }
@@ -54,7 +54,7 @@ public class DepartmentService {
     
     
     public List<Department> getById(Integer id) {
-        String uri = this.url + "departments";
+        String uri = this.url;
         if (id != null) {
             uri += "?id=" + id;
         }
@@ -70,7 +70,7 @@ public class DepartmentService {
     }
 
     public String savePost(Department department) {
-        String uri = this.url + "departments";
+        String uri = this.url;
 
         // Http Header
         HttpHeaders headers = new HttpHeaders();
@@ -102,7 +102,7 @@ public class DepartmentService {
     }
 
     public String savePut(Department department) {
-        String uri = this.url + "departments";
+        String uri = this.url;
 
         // Http Header
         HttpHeaders headers = new HttpHeaders();
@@ -139,7 +139,7 @@ public class DepartmentService {
     }
     
     public String deleteById(Integer id) {
-        String uri = this.url + "departments?id=" + id;
+        String uri = this.url + "?id=" + id;
 
         restTemplate.delete(uri, String.class);
 

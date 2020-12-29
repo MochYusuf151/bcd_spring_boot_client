@@ -9,6 +9,9 @@ import com.mcc40.client.entities.Department;
 import com.mcc40.client.services.DepartmentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +38,17 @@ public class DepartmentController {
     public String search(String keyword, Model model) {
         List<Department> departments = service.search(keyword);
         model.addAttribute("departments", departments);
+        
+        model.addAttribute("htmlTitle", "Department Table");
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        for (GrantedAuthority authority : auth.getAuthorities()) {
+            System.out.println(authority.getAuthority());
+            System.out.println(authority);
+        }
+        model.addAttribute("profile", auth);
+        
         return "department/department_table";
     }
 
@@ -67,7 +81,7 @@ public class DepartmentController {
 
         System.out.println(department);
         service.savePost(department);
-        return "redirect:localhost:8082/department/modify";
+        return "redirect:localhost:3000/department";
     }
 
     @PostMapping("update")
@@ -84,10 +98,10 @@ public class DepartmentController {
         if (!location.equals("")) {
             department.setLocationId(Integer.parseInt(location));
         }
-
+        
         System.out.println(department);
         service.savePut(department);
-        return "redirect:localhost:8082/department/modify";
+        return "redirect:localhost:3000/department";
     }
     
     @PostMapping("delete")

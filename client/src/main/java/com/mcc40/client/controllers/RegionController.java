@@ -9,6 +9,9 @@ import com.mcc40.client.entities.Region;
 import com.mcc40.client.services.RegionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +38,17 @@ public class RegionController {
     public String search(String keyword, Model model) {
         List<Region> regions = service.search(keyword);
         model.addAttribute("regions", regions);
+        
+        model.addAttribute("htmlTitle", "Region Table");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        for (GrantedAuthority authority : auth.getAuthorities()) {
+            System.out.println(authority.getAuthority());
+            System.out.println(authority);
+        }
+        model.addAttribute("profile", auth);
+
         return "region/region_table";
     }
 
@@ -52,11 +66,12 @@ public class RegionController {
 
         System.out.println(region);
         service.savePost(region);
-        return "redirect:localhost:8082/region/modify";
+        return "redirect:../region";
     }
 
     @PostMapping("update")
     public String savePut(Integer id, String name, Model model) {
+        System.out.println("Updating");
         System.out.println("[PUT] region: " + id + " | " + name);
         Region region = new Region();
         region.setId(id);
@@ -66,16 +81,16 @@ public class RegionController {
 
         System.out.println(region);
         service.savePut(region);
-        return "redirect:localhost:8082/region/modify";
+        return "redirect:../region";
     }
-    
+
     @PostMapping("delete")
     public String delete(String id, Model model) {
-        System.out.println("[DELETE] region: " +  id);
-        
+        System.out.println("[DELETE] region: " + id);
+
         service.deleteById(Integer.parseInt(id));
-        
-        return "redirect:localhost:8082/region/modify";
+
+        return "redirect:../region";
     }
 
 }

@@ -4,4 +4,4 @@ server:
     port: 3000
     
 api:
-    uri: http://localhost:8081/api/
+    uri: http://localhost:8081/api

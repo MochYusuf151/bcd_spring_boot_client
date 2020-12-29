@@ -110,7 +110,6 @@ function setEnableForm(action) {
     }
 }
 
-
 function submitForm() {
     if (document.getElementById("department-form").checkValidity()) {
         $('#departmentModal').modal('hide');
@@ -123,4 +122,67 @@ function submitForm() {
     setTimeout(function () {
         location.reload()
     }, 2000);
+}
+
+var job = {};
+var table;
+
+$(document).ready(function () {
+    getAll();
+    $('#jobForm').submit(function (event) {
+        event.preventDefault();
+        insert();
+    });
+});
+
+function getAll() {
+    table = $('#jobTable').DataTable({
+        "sAjaxSource": "/job/get-all?keyword=",
+        "sAjaxDataProp": "",
+        "order": [[0, "asc"]],
+        "columns": [
+            {"data": "id"},
+            {"data": "title"},
+            {"data": "minSalary"},
+            {"data": "maxSalary"},
+            {
+                "render": function (data, type, row, meta) {
+                    console.log(row.id)
+                    return "<button class='btn btn-sm btn-success' data-toggle='modal' data-target='#jobModal' \n\
+                    onclick='setForm(\""+ row +"\")'>Edit</button>\n\
+                    <button class='btn btn-sm btn-danger'>Delete</button>";
+                }
+            }
+        ]
+    });
+}
+
+function setForm(row) {
+    console.log();
+}
+
+function getValueForm() {
+    job.id = $('#id').val();
+    job.title = $('#title').val();
+    job.minSalary = $('#minSalary').val();
+    job.maxSalary = $('#maxSalary').val();
+}
+
+function insert() {
+    getValueForm();
+    $.ajax({
+        type: 'POST',
+        url: '/job',
+        contentType: "application/json",
+        data: JSON.stringify(job),
+        success: function (data) {
+            table.destroy();
+            getAll();
+            $('#jobModal').modal('hide');
+        },
+        error: function (e) {
+            console.log(e);
+            alert('Failed');
+        }
+    });
 }
