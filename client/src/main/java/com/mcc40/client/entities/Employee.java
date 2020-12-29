@@ -7,10 +7,7 @@ package com.mcc40.client.entities;
 
 import lombok.Data;
 
-/**
- *
- * @author WAHYUK
- */
+
 @Data
 public class Employee {
     private String firstName;
@@ -23,5 +20,5 @@ public class Employee {
     private double salary;
     private int department;
     private String email;
-    private String commissionPct;
+    private double commissionPct;
 }

@@ -6,7 +6,7 @@ body{
 
 ._wrapper{
     height: 100vh;
-    display: flex;
+    display: flex; 
 }
 
 .form-group .required:after {

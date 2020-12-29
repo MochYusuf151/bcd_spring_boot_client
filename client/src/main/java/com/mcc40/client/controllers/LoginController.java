@@ -34,7 +34,7 @@ public class LoginController {
         if (!auth.getName().equalsIgnoreCase("anonymousUser")) {
             result = "redirect:/dashboard";
         }else{
-            result = "login";
+            result = "user/auth";
         }
         return result;
     }

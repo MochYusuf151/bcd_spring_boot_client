@@ -14,8 +14,10 @@ and open the template in the editor.
         <div>Dashboard page</div>
         <br>
         <h1>Welcome <span th:text="${profile.getPrincipal()}"></span></h1>
+        <h2>Auth <span th:text="${profile.getAuthorities()}"></span></h1>
         <br>
-        <a th:href="@{/operator}" sec:authorize="hasAnyAuthority('ADMIN', 'OPERATOR')">Operator</a>
+        <a th:href="@{/employee}" sec:authorize="hasAnyAuthority('ROLE_OPERATOR')">Employee</a>
+        <a th:href="@{/operator}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">Operator</a>
         <br>
         <form th:action="@{/logout}" method="POST">
             <button type="submit">Logout</button>

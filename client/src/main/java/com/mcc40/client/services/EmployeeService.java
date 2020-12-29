@@ -7,17 +7,13 @@ package com.mcc40.client.services;
 
 import com.mcc40.client.entities.Employee;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -44,8 +40,8 @@ public class EmployeeService {
         ResponseEntity<List<Employee>> response = restTemplate.exchange(url,
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Employee>>() {
         });
-
         employees = response.getBody();
+
         return employees;
     }
 }

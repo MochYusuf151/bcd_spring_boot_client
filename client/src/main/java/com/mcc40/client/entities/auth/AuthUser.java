@@ -20,7 +20,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @Data
 public class AuthUser {
     
-    private String email;
+    private String username;
     private String[] roles;
     private int id;
     

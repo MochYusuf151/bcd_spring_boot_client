@@ -20,18 +20,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author WAHYUK
  */
 @Controller
-@RequestMapping("operator")
+@RequestMapping("employee")
 public class EmployeeController {
     
     @Autowired
     private EmployeeService service;
     
-    @GetMapping
-    public String dashboard() {
-        List<Employee> employees = service.search("");
-        for (Employee employee : employees) {
-            System.out.println(employee.getFirstName());
-        }
-        return "operator";
+//    @GetMapping
+//    public String dashboard() {
+//        List<Employee> employees = service.search("");
+//        for (Employee employee : employees) {
+//            System.out.println(employee.getFirstName());
+//        }
+//        return "operator";
+//    }
+    
+    @GetMapping()
+    public String search(String keyword){
+        service.search(keyword);
+        return "employee";
     }
 }

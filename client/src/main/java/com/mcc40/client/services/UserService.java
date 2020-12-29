@@ -67,7 +67,7 @@ public class UserService {
                 = new HttpEntity<String>(passwordJson.toString(), headers);
 
         System.out.println(passwordJson.toString());
-
+ 
         ResponseEntity<String> response = restTemplate.postForEntity(uri, request, String.class);
 
         return response.getBody();
@@ -87,13 +87,13 @@ public class UserService {
 
         AuthUser authUser = new AuthUser();
         authUser.setRoles(response.getBody().getRoles());
-        authUser.setEmail(response.getBody().getEmail());
+        authUser.setUsername(response.getBody().getUsername());
         setAuthentication(authUser, token);
     }
 
     private void setAuthentication(AuthUser authUser, String token) {
         PreAuthenticatedAuthenticationToken auth
-                = new PreAuthenticatedAuthenticationToken(authUser.getEmail(), token, authUser.getAuthorities());
+                = new PreAuthenticatedAuthenticationToken(authUser.getUsername(), token, authUser.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(auth);
     }

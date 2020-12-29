@@ -6,7 +6,6 @@
 package com.mcc40.client.config.rest;
 
 import java.io.IOException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.DefaultResponseErrorHandler;
@@ -15,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
- * @author WAHYUK
+ * @author Mochamad Yusuf
  */
 @Component
 public class RestErrorHandler implements ResponseErrorHandler {

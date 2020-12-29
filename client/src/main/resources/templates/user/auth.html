@@ -8,14 +8,10 @@ and open the template in the editor.
     <head th:replace="layout/head :: head_content">...
     </head>
     <body>
-        <!-- Navbar -->
-        <div th:replace="layout/header :: header_content">
-        </div>
 
         <!--Content-->
 
         <div class="_wrapper">
-
 
             <div class="container">
                 <div class="row h-100">
@@ -27,11 +23,11 @@ and open the template in the editor.
                                     <h5 class="secondary-title">Sign in with your account</h5>
                                 </div>
 
-                                <form class="needs-validation" novalidate>
+                                <form class="needs-validation" action="#" th:action="@{/auth}" method="POST" novalidate>
                                     <div class="form-group">
-                                        <label for="email" class="required">Email Address</label>
-                                        <input type="email" class ="form-control" name="email" id="email" placeholder="Enter email" required>
-                                        <div class="invalid-feedback">Please enter your email</div>
+                                        <label for="username" class="required">Username</label>
+                                        <input type="text" class ="form-control" name="username" id="username" placeholder="Enter username or email" required>
+                                        <div class="invalid-feedback">Please enter your username or email</div>
                                     </div>
 
                                     <div class="form-group">
@@ -57,12 +53,7 @@ and open the template in the editor.
 
         <!--Footer-->
 
-        <div th:replace="layout/footer :: ${account == 'admin'} ? 'footer_admin_content' : 'footer_user_content'">
-            &copy; 2016 The Static Templates
-        </div>
-
-        <div th:replace="layout/script :: script_sbadmin_js">
-        </div>
+        
 
     </body>
 </html>
