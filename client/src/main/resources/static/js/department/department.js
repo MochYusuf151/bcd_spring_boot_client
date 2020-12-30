@@ -122,6 +122,8 @@ function infoDepartmentForm(data) {
     department.id = $('#departmentForm #id').val(data.id);
     department.name = $('#departmentForm #name').val(data.name);
     department.managerId = $('#departmentForm #manager').val(data.managerId);
+    $('#departmentForm #manager').trigger('change'); 
+    
     department.locationId = $('#departmentForm #location').val(data.locationId);
 
     $('#departmentForm #id').prop('readonly', true);
