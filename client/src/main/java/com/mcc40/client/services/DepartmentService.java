@@ -80,6 +80,7 @@ public class DepartmentService {
                 request,
                 String.class
         );
+        System.out.println("response: " + response.getBody());
 
         return response.getStatusCodeValue() == 200;
     }

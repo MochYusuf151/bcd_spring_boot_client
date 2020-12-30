@@ -18,6 +18,10 @@ $(document).ready(function () {
     getAll();
     selectData();
 
+    $('#departmentForm #manager').select2({
+     theme: "bootstrap"
+    });
+
     $('#addRow').on('click', function () {                              // Assign add onclick action
         addDepartmentForm();
         state = "CREATE";
@@ -51,31 +55,26 @@ $(document).ready(function () {
 });
 
 function selectData() {
+    //Make an Ajax request to a PHP script called car-models.php
+    //This will return the data that we can add to our Select element.
+    $.ajax({
+        url: '/department/get-managers',
+        type: 'get',
 
-    $('.js-data-example-ajax').select2({
-        ajax: {
-            url: '/department/get-managers',
-            dataType: "json",
-            type: "GET",
-            data: function (params) {
+        success: function (data) {
+            var options = "";
 
-                var queryParameters = {
-                    term: params.term
-                }
-                return queryParameters;
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.firstName + " " + item.lastName,
-                            id: item.id
-                        }
-                    })
-                };
-            }
+            $.each(data, function (index, value) {
+                options += '<option value="' + value.id + '">' + value.firstName + " " + value.lastName + "</option>\n";
+            });
+
+            console.log(options);
+
+            $("#departmentForm #manager").append(options);
+
         }
     });
+
 }
 
 function getAll() {
@@ -127,7 +126,7 @@ function infoDepartmentForm(data) {
 
     $('#departmentForm #id').prop('readonly', true);
     $('#departmentForm #name').prop('readonly', true);
-    $('#departmentForm #manager').prop('readonly', true);
+    $('#departmentForm #manager').prop('disabled', true);
     $('#departmentForm #location').prop('readonly', true);
 
     $('#departmentForm #action-button').hide();
@@ -138,11 +137,13 @@ function addDepartmentForm() {
     department.id = $('#departmentForm #id').val(null);
     department.name = $('#departmentForm #name').val(null);
     department.managerId = $('#departmentForm #manager').val(null);
+    $('#departmentForm #manager').trigger('change'); 
+    
     department.locationId = $('#departmentForm #location').val(null);
 
     $('#departmentForm #id').prop('readonly', false);
     $('#departmentForm #name').prop('readonly', false);
-    $('#departmentForm #manager').prop('readonly', false);
+    $('#departmentForm #manager').prop('disabled', false);
     $('#departmentForm #location').prop('readonly', false);
 
     $('#departmentForm #action-button').show();
@@ -150,16 +151,16 @@ function addDepartmentForm() {
 }
 
 function editDepartmentForm(data) {
-
     department.id = $('#departmentForm #id').val(data.id);
-
     department.name = $('#departmentForm #name').val(data.name);
     department.managerId = $('#departmentForm #manager').val(data.managerId);
+    $('#departmentForm #manager').trigger('change'); 
+    
     department.locationId = $('#departmentForm #location').val(data.locationId);
 
     $('#departmentForm #id').prop('readonly', true);
     $('#departmentForm #name').prop('readonly', false);
-    $('#departmentForm #manager').prop('readonly', false);
+    $('#departmentForm #manager').prop('disabled', false);
     $('#departmentForm #location').prop('readonly', false);
 
     $('#departmentForm #action-button').show();
@@ -215,9 +216,6 @@ function setDepartment() {
     department.locationId = $('#departmentForm #location').val();
 }
 
-
-
-
 function insert() {
     setDepartment();
     $.ajax({
@@ -255,7 +253,6 @@ function update() {
         }
     });
 }
-
 
 function sweetAlert(message) {
 
