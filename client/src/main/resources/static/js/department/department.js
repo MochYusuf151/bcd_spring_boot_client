@@ -1,46 +1,6 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-$(document).ready(function () {
-    $('#accordionSidebar #department').addClass('active');
-});
-
-
-function deleteData(id, name) {
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-danger mr-3',
-            cancelButton: 'btn btn-secondary'
-        },
-        buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "You will delete '" + name + "' from database",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Delete',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.post("department/delete", {
-                id: id
-            }, null);
-            Toast.fire({
-                icon: 'success',
-                title: 'Data deleted',
-                timer: 2000,
-                timerProgressBar: true
-            })
-            setTimeout(function () {
-                location.reload()
-            }, 2000);
-        }
-    })
-}
+var table;
+var department = {};
+var state;
 
 const Toast = Swal.mixin({
     toast: true,
@@ -54,72 +14,249 @@ const Toast = Swal.mixin({
     }
 })
 
-function deleteToast() {
+$(document).ready(function () {
+    getAll();
+    selectData();
+
+    $('#addRow').on('click', function () {                              // Assign add onclick action
+        addDepartmentForm();
+        state = "CREATE";
+    });
+
+    $('#departmentTable tbody').on('click', '#info', function () {      // Assign info onclick action for every row
+        var data = table.row($(this).parents('tr')).data();
+        infoDepartmentForm(data);
+        state = "INFO"
+    });
+
+    $('#departmentTable tbody').on('click', '#edit', function () {      // Assign edit onclick action for every row
+        var data = table.row($(this).parents('tr')).data();
+        editDepartmentForm(data);
+        state = "UPDATE";
+    });
+
+    $('#departmentTable tbody').on('click', '#delete', function () {    // Assign delete onclick action for every row
+        var data = table.row($(this).parents('tr')).data();
+        deleteRow(data);
+    });
+
+    $('#departmentForm').submit(function (event) {
+        event.preventDefault();
+        if (state === 'CREATE') {
+            insert();
+        } else if (state === 'UPDATE') {
+            update();
+        }
+    });
+});
+
+function selectData() {
+
+    $('.js-data-example-ajax').select2({
+        ajax: {
+            url: '/department/get-managers',
+            dataType: "json",
+            type: "GET",
+            data: function (params) {
+
+                var queryParameters = {
+                    term: params.term
+                }
+                return queryParameters;
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.firstName + " " + item.lastName,
+                            id: item.id
+                        }
+                    })
+                };
+            }
+        }
+    });
+}
+
+function getAll() {
+
+    table = $('#departmentTable').DataTable(
+            {
+                'sAjaxSource': '/department/get-all',
+                'sAjaxDataProp': '',
+                'columns': [
+                    {'data': 'id'},
+                    {'data': 'name'},
+                    {'data': 'managerId'},
+                    {'data': 'manager'},
+                    {'data': 'locationId'},
+                    {'data': 'location'},
+                    {
+                        'render': function (data, type, row, meta) {
+                            return '<button id="info" class="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#departmentModal">'
+                                    + '<i class="fas fa-info-circle"></i></button>'
+                                    + '<button id="edit" class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#departmentModal">'
+                                    + '<i class="fas fa-edit"></i></button>'
+                                    + '<button id="delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+                        }
+                    }
+                ],
+                "columnDefs": [
+                    {
+                        "targets": [2],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [4],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ]
+            }
+    );
 
 
-    Toast.fire({
-        icon: 'success',
-        title: 'Data deleted successfully'
+}
+
+function infoDepartmentForm(data) {
+    department.id = $('#departmentForm #id').val(data.id);
+    department.name = $('#departmentForm #name').val(data.name);
+    department.managerId = $('#departmentForm #manager').val(data.managerId);
+    department.locationId = $('#departmentForm #location').val(data.locationId);
+
+    $('#departmentForm #id').prop('readonly', true);
+    $('#departmentForm #name').prop('readonly', true);
+    $('#departmentForm #manager').prop('readonly', true);
+    $('#departmentForm #location').prop('readonly', true);
+
+    $('#departmentForm #action-button').hide();
+    $('#departmentForm').removeClass('was-validated');
+}
+
+function addDepartmentForm() {
+    department.id = $('#departmentForm #id').val(null);
+    department.name = $('#departmentForm #name').val(null);
+    department.managerId = $('#departmentForm #manager').val(null);
+    department.locationId = $('#departmentForm #location').val(null);
+
+    $('#departmentForm #id').prop('readonly', false);
+    $('#departmentForm #name').prop('readonly', false);
+    $('#departmentForm #manager').prop('readonly', false);
+    $('#departmentForm #location').prop('readonly', false);
+
+    $('#departmentForm #action-button').show();
+    $('#departmentForm').removeClass('was-validated');
+}
+
+function editDepartmentForm(data) {
+
+    department.id = $('#departmentForm #id').val(data.id);
+
+    department.name = $('#departmentForm #name').val(data.name);
+    department.managerId = $('#departmentForm #manager').val(data.managerId);
+    department.locationId = $('#departmentForm #location').val(data.locationId);
+
+    $('#departmentForm #id').prop('readonly', true);
+    $('#departmentForm #name').prop('readonly', false);
+    $('#departmentForm #manager').prop('readonly', false);
+    $('#departmentForm #location').prop('readonly', false);
+
+    $('#departmentForm #action-button').show();
+    $('#departmentForm').removeClass('was-validated');
+}
+
+function deleteRow(data) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-danger mr-3',
+            cancelButton: 'btn btn-secondary'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You will delete '" + data.name + "' from database",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: '/department?id=' + data.id,
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: null,
+                success: function (res) {
+                    table.destroy();
+                    getAll();
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data deleted',
+                        timer: 2000,
+                        timerProgressBar: true
+                    })
+                },
+                error: function (e) {
+                    sweetAlert("Delete failed");
+                }
+            });
+        }
     })
 }
 
-function getFormData(id, name, manager, location, action) {
-
-    $('form #id').val(id);
-    $('form #name').val(name);
-    $('form #manager').val(manager);
-    $('form #location').val(location);
-
-    switch (action) {
-        case "add":
-            $('#departmentModalTitle').html("Add New Department");
-            $('#department-form').prop("action", "department/post");
-            $('#department-form').prop("method", "post");
-            break;
-        case "detail":
-            $('#departmentModalTitle').html("Department Info");
-            break;
-        case "edit":
-            $('#departmentModalTitle').html("Edit Department");
-            $('#department-form').prop("action", "department/update");
-            $('#department-form').prop("method", "post");
-            break;
-        default:
-            break;
-    }
-    setEnableForm(action);
+function setDepartment() {
+    department.id = $('#departmentForm #id').val();
+    department.name = $('#departmentForm #name').val();
+    department.managerId = $('#departmentForm #manager').val();
+    department.locationId = $('#departmentForm #location').val();
 }
 
 
-function setEnableForm(action) {
-    isDisable = action === 'detail';
 
-    if (action === 'add') {
-        $('form #id').prop("readonly", false);
-    } else {
-        $('form #id').prop("readonly", true);
-    }
-    $('form #name').prop("readonly", isDisable);
-    $('form #manager').prop("readonly", isDisable);
-    $('form #location').prop("readonly", isDisable);
 
-    if (isDisable) {
-        $('form #action-button').hide();
-    } else {
-        $('form #action-button').show();
-    }
+function insert() {
+    setDepartment();
+    $.ajax({
+        url: '/department',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(department),
+        success: function (res) {
+            $('#departmentModal').modal('hide');
+            table.destroy();
+            getAll();
+        },
+        error: function (e) {
+            sweetAlert("Failed save");
+        }
+    });
 }
 
-function submitForm() {
-    if (document.getElementById("department-form").checkValidity()) {
-        $('#departmentModal').modal('hide');
-        Toast.fire({
-            icon: 'success',
-            title: 'Data Updated',
-            timer: 2000
-        })
-    }
-    setTimeout(function () {
-        location.reload()
-    }, 2000);
+function update() {
+    console.log($('.js-data-example-ajax').find(':selected').data('name'));
+    setDepartment();
+    $.ajax({
+        url: '/department',
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(department),
+        success: function (res) {
+            $('#departmentModal').modal('hide');
+            table.destroy();
+            getAll();
+            sweetAlert("Saved");
+        },
+        error: function (e) {
+            sweetAlert("Failed save");
+        }
+    });
+}
+
+
+function sweetAlert(message) {
+
 }

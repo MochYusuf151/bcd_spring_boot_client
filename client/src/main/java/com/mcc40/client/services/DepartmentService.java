@@ -6,6 +6,7 @@
 package com.mcc40.client.services;
 
 import com.mcc40.client.entities.Department;
+import com.mcc40.client.entities.Employee;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 
 /**
  *
@@ -26,125 +24,77 @@ import org.springframework.http.MediaType;
 @Service
 public class DepartmentService {
 
-    RestTemplate restTemplate;
-
     @Autowired
-    public DepartmentService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    RestTemplate restTemplate;
 
     @Value("${api.uri}/departments")
     private String url;
 
     public List<Department> search(String keyword) {
-        String uri = this.url;
+        String url = this.url;
         if (keyword != null) {
-            uri += "?keyword=" + keyword;
+            url += "?keyword=" + keyword;
         }
-        ResponseEntity<List<Department>> response = restTemplate.exchange(uri,
+        ResponseEntity<List<Department>> response = restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Department>>() {
         });
-        for (Department department : response.getBody()) {
-            System.out.print(department);
-        }
+
         return response.getBody();
     }
-    
-    
+
     public List<Department> getById(Integer id) {
-        String uri = this.url;
+        String url = this.url;
         if (id != null) {
-            uri += "?id=" + id;
+            url += "?id=" + id;
         }
-        ResponseEntity<List<Department>> response = restTemplate.exchange(uri,
+        ResponseEntity<List<Department>> response = restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Department>>() {
         });
-        for (Department department : response.getBody()) {
-            System.out.print(department);
-        }
-        return response.getBody();
-    }
-
-    public String savePost(Department department) {
-        String uri = this.url;
-
-        // Http Header
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        // Json Object
-        JSONObject departmentJson = new JSONObject();
-        JSONObject managerJson = new JSONObject();
-        managerJson.put("id", department.getManagerId());
-
-        JSONObject locationJson = new JSONObject();
-        locationJson.put("id", department.getLocationId());
-
-        departmentJson.put("manager", managerJson);
-        departmentJson.put("location", locationJson);
-
-        departmentJson.put("id", department.getId());
-        departmentJson.put("name", department.getName());
-
-        //Http Entity
-        HttpEntity<String> request
-                = new HttpEntity<String>(departmentJson.toString(), headers);
-
-        System.out.println(departmentJson.toString());
-
-        ResponseEntity<String> response = restTemplate.postForEntity(uri, request, String.class);
 
         return response.getBody();
     }
 
-    public String savePut(Department department) {
-        String uri = this.url;
+    public boolean insert(Department department) {
+        System.out.println(department.getJSONString());
 
-        // Http Header
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<String> response = restTemplate.postForEntity(url, department.getJSONString(), String.class);
 
-        // Json Object
-        JSONObject departmentJson = new JSONObject();
-        JSONObject managerJson = new JSONObject();
-        managerJson.put("id", department.getManagerId());
+        return response.getStatusCodeValue() == 200;
+    }
 
-        JSONObject locationJson = new JSONObject();
-        locationJson.put("id", department.getLocationId());
-        if (department.getManagerId() != null) {
-            departmentJson.put("manager", managerJson);
-        }
-        if (department.getLocationId() != null) {
-            departmentJson.put("location", locationJson);
-        }
+    public boolean update(Department department) {
+        System.out.println("update");
 
-        departmentJson.put("id", department.getId());
-        if (department.getName() != null) {
-            departmentJson.put("name", department.getName());
-        }
-
-        //Http Entity
         HttpEntity<String> request
-                = new HttpEntity<String>(departmentJson.toString(), headers);
+                = new HttpEntity<String>(department.getJSONString());
 
-        System.out.println(departmentJson.toString());
+        System.out.println(department.getJSONString());
 
-        restTemplate.put(uri, request);
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                request,
+                String.class
+        );
 
-        return "inserted";
+        return response.getStatusCodeValue() == 200;
     }
-    
-    public String deleteById(Integer id) {
-        String uri = this.url + "?id=" + id;
 
-        restTemplate.delete(uri, String.class);
+    public boolean delete(Integer id) {
+        String url = this.url + "?id=" + id;
 
-        return "Success";
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                null,
+                String.class
+        );
+
+        return response.getStatusCodeValue() == 200;
     }
-    
 
 }

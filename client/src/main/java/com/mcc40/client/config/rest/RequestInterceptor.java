@@ -7,6 +7,7 @@ package com.mcc40.client.config.rest;
 
 import java.io.IOException;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
@@ -25,6 +26,7 @@ public class RequestInterceptor implements ClientHttpRequestInterceptor {
         
         if (auth.isAuthenticated()){
             req.getHeaders().add("Authorization", "Bearer " + auth.getCredentials().toString());
+            req.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         }
         
         ClientHttpResponse response = res.execute(req, body);

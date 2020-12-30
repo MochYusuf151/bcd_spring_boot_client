@@ -6,6 +6,7 @@
 package com.mcc40.client.entities;
 
 import lombok.Data;
+import org.json.JSONObject;
 
 /**
  *
@@ -19,4 +20,26 @@ public class Department {
     private String manager;
     private Integer locationId;
     private String location;
+    
+    public String getJSONString(){
+        JSONObject departmentJson = new JSONObject();
+        JSONObject managerJson = new JSONObject();
+        managerJson.put("id", getManagerId());
+
+        JSONObject locationJson = new JSONObject();
+        locationJson.put("id", getLocationId());
+        if (getManagerId() != null) {
+            departmentJson.put("manager", managerJson);
+        }
+        if (getLocationId() != null) {
+            departmentJson.put("location", locationJson);
+        }
+
+        departmentJson.put("id", getId());
+        if (getName() != null) {
+            departmentJson.put("name", getName());
+        }
+        
+        return departmentJson.toString();
+    }
 }
