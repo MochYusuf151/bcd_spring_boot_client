@@ -1,0 +1,48 @@
+
+
+<div class="modal fade" id="countryModal" tabindex="-1" role="dialog" aria-labelledby="countryModalTitle"
+     aria-hidden="true"
+     th:fragment="form-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="countryModalTitle">Country Form</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="countryForm" class="needs-validation mx-4" novalidate>
+
+                    <!--Id-->
+                    <div class="form-group">
+                        <label for="id" class="required">ID</label>
+                        <input type="number" class ="form-control" name="id" id="id" placeholder="Enter country id" required>
+                        <div class="invalid-feedback">Please enter the country id</div>
+                    </div>
+
+                    <!--Name-->
+                    <div class="form-group">
+                        <label for="name" class="required">Name</label>
+                        <input type="text" class ="form-control" name="name" id="name" placeholder="Enter country name" required>
+                        <div class="invalid-feedback">Please enter the country name</div>
+                    </div>
+
+                    <!--Region-->
+                    <div class="form-group">
+                        <label for="region">Region</label>
+
+                        <select class="form-control js-example-basic-single" name="region" id="region" 
+                                data-width="100%" data-placeholder="Select Region">
+                        </select>
+                    </div>
+
+                    <div id="action-button" class="form-group text-right pt-4 border-top">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

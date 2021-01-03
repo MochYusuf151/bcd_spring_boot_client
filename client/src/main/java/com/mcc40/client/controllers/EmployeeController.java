@@ -42,6 +42,8 @@ public class EmployeeController {
         model.addAttribute("modal", "/employee/form-modal.html");
         model.addAttribute("modalFrag", "form-modal");
         model.addAttribute("javascript", "/js/pages/employee.js");
+        
+        model.addAttribute("htmlTitle", "Employee");
 
         return "/layout/table-page";
     }

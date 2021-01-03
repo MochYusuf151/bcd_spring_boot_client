@@ -5,9 +5,8 @@
  */
 package com.mcc40.client.controllers;
 
-import com.mcc40.client.entities.Department;
-import com.mcc40.client.entities.Employee;
-import com.mcc40.client.services.DepartmentService;
+import com.mcc40.client.entities.Country;
+import com.mcc40.client.services.CountryService;
 import com.mcc40.client.services.EmployeeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,47 +22,47 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author Mochamad Yusuf
+ * @author Mocahamad Yusuf
  */
 @Controller
-@RequestMapping("department")
-public class DepartmentController {
+@RequestMapping("country")
+public class CountryController {
 
     @Autowired
-    DepartmentService service;
+    CountryService service;
 
     @GetMapping
     public String table(Model model) {
-        model.addAttribute("table", "/department/table.html");
+        model.addAttribute("table", "/country/table.html");
         model.addAttribute("tableFrag", "table");
-        model.addAttribute("modal", "/department/form-modal.html");
+        model.addAttribute("modal", "/country/form-modal.html");
         model.addAttribute("modalFrag", "form-modal");
-        model.addAttribute("javascript", "/js/pages/department.js");
+        model.addAttribute("javascript", "/js/pages/country.js");
         
-        model.addAttribute("htmlTitle", "Department");
+        model.addAttribute("htmlTitle", "Country");
 
         return "/layout/table-page";
     }
 
     @GetMapping("get-all")
     public @ResponseBody
-    List<Department> getAll() {
-        System.out.println("fetching department table");
+    List<Country> getAll() {
+        System.out.println("fetching country table");
         return service.search(null);
     }
 
     @PostMapping
     public @ResponseBody
-    boolean insert(@RequestBody Department department) {
-        return service.insert(department);
+    boolean insert(@RequestBody Country country) {
+        return service.insert(country);
     }
 
     @PutMapping
     public @ResponseBody
-    boolean update(@RequestBody Department department) {
+    boolean update(@RequestBody Country country) {
         System.out.println("update");
 
-        return service.update(department);
+        return service.update(country);
     }
 
     @DeleteMapping

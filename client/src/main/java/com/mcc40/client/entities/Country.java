@@ -17,16 +17,14 @@ public class Country {
 
     private String id;
     private String name;
-    private Integer regionId;
-    private String regionName;
+    private Integer region;
 
     public String getJSONMap() {
         JSONObject countryJson = new JSONObject();
 
         countryJson.put("id", getId());
         countryJson.put("name", getName());
-        countryJson.put("regionId", getRegionId());
-        countryJson.put("regionName", getRegionName());
+        countryJson.put("regionId", getRegion());
 
         return countryJson.toString();
     }
