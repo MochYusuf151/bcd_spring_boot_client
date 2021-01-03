@@ -14,6 +14,7 @@ import com.mcc40.client.services.LocationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +35,14 @@ public class RegionController {
     RegionService service;
 
     @GetMapping
-    public String table() {
-        return "/region/table";
+     public String table(Model model) {
+        model.addAttribute("table", "/region/table.html");
+        model.addAttribute("tableFrag", "table");
+        model.addAttribute("modal", "/region/form-modal.html");
+        model.addAttribute("modalFrag", "form-modal");
+        model.addAttribute("javascript", "/js/pages/region.js");
+
+        return "/layout/table-page";
     }
 
     @GetMapping("get-all")

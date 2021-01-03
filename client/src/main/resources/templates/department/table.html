@@ -1,115 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<div  th:fragment="table" class="container-fluid">
 
-    <head th:replace="/layout/head :: head_content">
-    </head>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Departments</h1>
+    <p class="mb-4">Departments berisi data dari tabel "Departments" dari database "hr".</p>
 
-    <body id="page-top">
-
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-
-            <!-- Sidebar -->
-            <ul th:replace="/layout/sidebar :: sidebar_content">
-            </ul>
-            <!-- End of Sidebar -->
-
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-
-                <!-- Main Content -->
-                <div id="content">
-
-                    <!-- Topbar -->
-                    <nav th:replace="/layout/header :: header_sbadmin">
-                    </nav>
-                    <!-- End of Topbar -->
-
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
-
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Departments</h1>
-                        <p class="mb-4">Departments berisi data dari tabel "Departments" dari database "hr".</p>
-
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <div class="row">
-                                    <div class="col-6 pt-2">
-                                        <span class="font-weight-bold text-primary">Departments table</span>
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-success float-right"
-                                                id="addRow"
-                                                data-toggle="modal" data-target="#departmentModal">
-                                            <i class="fas fa-plus"></i>
-                                            New Department
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="departmentTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Manager ID</th>
-                                                <th>Manager</th>
-                                                <th>Location ID</th>
-                                                <th>Location</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-<!--                                        <tfoot>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Manager</th>
-                                                <th>Location</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </tfoot>-->
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /.container-fluid -->
-
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-6 pt-2">
+                    <span class="font-weight-bold text-primary">Departments table</span>
                 </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <footer th:replace="/layout/footer :: footer_sbadmin"
-            </footer>
-            <!-- End of Footer -->
-
+                <div class="col-6">
+                    <button class="btn btn-success float-right"
+                            id="addRow"
+                            data-toggle="modal" data-target="#departmentModal">
+                        <i class="fas fa-plus"></i>
+                        New Department
+                    </button>
+                </div>
+            </div>
         </div>
-        <!-- End of Content Wrapper -->
-
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="departmentTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Manager ID</th>
+                            <th>Manager</th>
+                            <th>Location ID</th>
+                            <th>Location</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <!--                                        <tfoot>
+                                                                <tr>
+                                                                    <th>ID</th>
+                                                                    <th>Name</th>
+                                                                    <th>Manager</th>
+                                                                    <th>Location</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </tfoot>-->
+                </table>
+            </div>
+        </div>
     </div>
-    <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-
-    <!-- Department Modal-->
-    <div th:replace='/department/form-modal :: form-modal'></div>
-
-
-    <div th:replace='/layout/modal :: logout_modal'></div>
-
-
-
-    <script src="/js/department/department.js"></script>
-
-</body>
-
-</html>
+</div>

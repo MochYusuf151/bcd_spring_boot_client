@@ -14,6 +14,7 @@ import com.mcc40.client.services.LocationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +35,14 @@ public class DepartmentController {
     DepartmentService service;
 
     @GetMapping
-    public String table() {
-        return "/department/table";
+    public String table(Model model) {
+        model.addAttribute("table", "/department/table.html");
+        model.addAttribute("tableFrag", "table");
+        model.addAttribute("modal", "/department/form-modal.html");
+        model.addAttribute("modalFrag", "form-modal");
+        model.addAttribute("javascript", "/js/pages/department.js");
+
+        return "/layout/table-page";
     }
 
     @GetMapping("get-all")
@@ -55,15 +62,15 @@ public class DepartmentController {
     public @ResponseBody
     boolean update(@RequestBody Department department) {
         System.out.println("update");
-        
+
         return service.update(department);
     }
-    
+
     @DeleteMapping
     public @ResponseBody
     boolean delete(Integer id) {
         System.out.println("delete " + id);
-        
+
         return service.delete(id);
     }
 

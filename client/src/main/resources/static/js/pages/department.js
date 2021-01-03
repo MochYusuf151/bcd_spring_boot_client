@@ -16,7 +16,7 @@ const Toast = Swal.mixin({
 
 $(document).ready(function () {
     getAll();
-    selectData();
+    initDropDown();
 
     $('#departmentForm #manager').select2({
         theme: "bootstrap"
@@ -54,11 +54,9 @@ $(document).ready(function () {
     });
 });
 
-function selectData() {
-    //Make an Ajax request to a PHP script called car-models.php
-    //This will return the data that we can add to our Select element.
+function initDropDown() {
     $.ajax({
-        url: '/department/get-managers',
+        url: '/employee/get-all',
         type: 'get',
 
         success: function (data) {
@@ -71,6 +69,27 @@ function selectData() {
             console.log(options);
 
             $("#departmentForm #manager").append(options);
+
+        }
+    });
+
+    $.ajax({
+        url: '/location/get-all',
+        type: 'get',
+
+        success: function (data) {
+            var options = "";
+
+            $.each(data, function (index, value) {
+                options += '<option value="' + value.id + '">'
+                        + value.streetAddress
+                        + ", " + value.city
+                        + "</option>\n";
+            });
+
+            console.log(options);
+
+            $("#departmentForm #location").append(options);
 
         }
     });
@@ -196,7 +215,7 @@ function deleteRow(data) {
                 success: function (res) {
                     table.destroy();
                     getAll();
-                    sweetAlert("success","Data deleted");
+                    sweetAlert("success", "Data deleted");
                 },
                 error: function (e) {
                     sweetAlert("error", "Delete failed");
@@ -224,10 +243,10 @@ function insert() {
             $('#departmentModal').modal('hide');
             table.destroy();
             getAll();
-            sweetAlert("success","Data inserted");
+            sweetAlert("success", "Data inserted");
         },
         error: function (e) {
-            sweetAlert("error","Save failed: " + e.responseText);
+            sweetAlert("error", "Save failed: " + e.responseText);
         }
     });
 }
@@ -244,10 +263,10 @@ function update() {
             $('#departmentModal').modal('hide');
             table.destroy();
             getAll();
-            sweetAlert("success","Data changed");
+            sweetAlert("success", "Data changed");
         },
         error: function (e) {
-            sweetAlert("error","Save failed: " + e.status);
+            sweetAlert("error", "Save failed: " + e.status);
         }
     });
 }

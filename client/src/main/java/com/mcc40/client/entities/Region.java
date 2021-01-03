@@ -5,9 +5,8 @@
  */
 package com.mcc40.client.entities;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import lombok.Data;
+import org.json.JSONObject;
 
 /**
  *
@@ -20,7 +19,7 @@ public class Region {
     private String name;
 
     public String getJSONMap() {
-        Map departmentJson = new LinkedHashMap();
+        JSONObject departmentJson = new JSONObject();
 
         departmentJson.put("id", getId());
         departmentJson.put("name", getName());

@@ -8,6 +8,7 @@ package com.mcc40.client.entities;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.Data;
+import org.json.JSONObject;
 
 @Data
 public class Employee {
@@ -26,7 +27,7 @@ public class Employee {
     private Integer department;
 
     public String getJSONMap() {
-        Map employeeJson = new LinkedHashMap();
+        JSONObject employeeJson = new JSONObject();
 
         employeeJson.put("id", getId());
         employeeJson.put("firstName", getFirstName());
@@ -37,17 +38,17 @@ public class Employee {
         employeeJson.put("email", getEmail());
         employeeJson.put("commissionPct", getCommissionPct());
 
-        Map jobJson = new LinkedHashMap();
+        JSONObject jobJson = new JSONObject();
         jobJson.put("id", getJob());
         if (getJob() != null) {
             employeeJson.put("job", jobJson);
         }
-        Map managerJson = new LinkedHashMap();
+        JSONObject managerJson = new JSONObject();
         managerJson.put("id", getManager());
         if (getManager() != null) {
             employeeJson.put("manager", managerJson);
         }
-        Map departmentJson = new LinkedHashMap();
+        JSONObject departmentJson = new JSONObject();
         departmentJson.put("id", getDepartment());
         if (getDepartment() != null) {
             departmentJson.put("department", departmentJson);

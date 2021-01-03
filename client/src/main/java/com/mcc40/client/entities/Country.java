@@ -5,8 +5,8 @@
  */
 package com.mcc40.client.entities;
 
-import java.util.List;
 import lombok.Data;
+import org.json.JSONObject;
 
 /**
  *
@@ -19,4 +19,15 @@ public class Country {
     private String name;
     private Integer regionId;
     private String regionName;
+
+    public String getJSONMap() {
+        JSONObject countryJson = new JSONObject();
+
+        countryJson.put("id", getId());
+        countryJson.put("name", getName());
+        countryJson.put("regionId", getRegionId());
+        countryJson.put("regionName", getRegionName());
+
+        return countryJson.toString();
+    }
 }
