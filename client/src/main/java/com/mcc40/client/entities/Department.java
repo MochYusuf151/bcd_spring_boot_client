@@ -5,8 +5,11 @@
  */
 package com.mcc40.client.entities;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import lombok.Data;
-import org.json.JSONObject;
 
 /**
  *
@@ -14,32 +17,32 @@ import org.json.JSONObject;
  */
 @Data
 public class Department {
+
     private Integer id;
     private String name;
     private Integer managerId;
     private String manager;
     private Integer locationId;
     private String location;
-    
-    public String getJSONString(){
-        JSONObject departmentJson = new JSONObject();
-        JSONObject managerJson = new JSONObject();
-        managerJson.put("id", getManagerId());
 
-        JSONObject locationJson = new JSONObject();
-        locationJson.put("id", getLocationId());
+    public String getJSONMap() {
+        Map departmentJson = new LinkedHashMap();
+
+        departmentJson.put("id", getId());
+        departmentJson.put("name", getName());
+
+        Map managerJson = new LinkedHashMap();
+        managerJson.put("id", getManagerId());
         if (getManagerId() != null) {
             departmentJson.put("manager", managerJson);
         }
+
+        Map locationJson = new LinkedHashMap();
+        locationJson.put("id", getLocationId());
         if (getLocationId() != null) {
             departmentJson.put("location", locationJson);
         }
 
-        departmentJson.put("id", getId());
-        if (getName() != null) {
-            departmentJson.put("name", getName());
-        }
-        
         return departmentJson.toString();
     }
 }

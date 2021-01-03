@@ -7,10 +7,10 @@ package com.mcc40.client.controllers;
 
 import com.mcc40.client.entities.Department;
 import com.mcc40.client.entities.Employee;
-import com.mcc40.client.entities.SelectData;
+import com.mcc40.client.entities.Location;
 import com.mcc40.client.services.DepartmentService;
 import com.mcc40.client.services.EmployeeService;
-import java.util.ArrayList;
+import com.mcc40.client.services.LocationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +34,7 @@ public class DepartmentController {
     DepartmentService service;
     @Autowired
     EmployeeService employeeService;
+    LocationService locationService;
 
     @GetMapping
     public String table() {
@@ -45,28 +46,6 @@ public class DepartmentController {
     List<Department> getAll() {
         System.out.println("fetching department table");
         return service.search(null);
-    }
-    
-    @GetMapping("get-managers")
-    public @ResponseBody
-    List<Employee> getManagers() {
-        System.out.println("fetching employee table");
-        List<Employee> employees = employeeService.search(null);
-        return employees;
-    }
-    
-    @GetMapping("get-example")
-    public @ResponseBody
-    List<SelectData> getExample() {
-        List<SelectData> s = new ArrayList<>();
-        s.add(new SelectData(1,"Feby"));
-        s.add(new SelectData(2,"Fery"));
-        s.add(new SelectData(3,"Rosa"));
-        s.add(new SelectData(4,"Remi"));
-        s.add(new SelectData(5,"Renda"));
-        s.add(new SelectData(6,"Jeni"));
-        s.add(new SelectData(7,"Abdul"));
-        return s;
     }
 
     @PostMapping
@@ -82,7 +61,6 @@ public class DepartmentController {
         
         return service.update(department);
     }
-    
     
     @DeleteMapping
     public @ResponseBody

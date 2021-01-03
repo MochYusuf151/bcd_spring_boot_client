@@ -19,7 +19,7 @@ $(document).ready(function () {
     selectData();
 
     $('#departmentForm #manager').select2({
-     theme: "bootstrap"
+        theme: "bootstrap"
     });
 
     $('#addRow').on('click', function () {                              // Assign add onclick action
@@ -122,8 +122,8 @@ function infoDepartmentForm(data) {
     department.id = $('#departmentForm #id').val(data.id);
     department.name = $('#departmentForm #name').val(data.name);
     department.managerId = $('#departmentForm #manager').val(data.managerId);
-    $('#departmentForm #manager').trigger('change'); 
-    
+    $('#departmentForm #manager').trigger('change');
+
     department.locationId = $('#departmentForm #location').val(data.locationId);
 
     $('#departmentForm #id').prop('readonly', true);
@@ -139,8 +139,8 @@ function addDepartmentForm() {
     department.id = $('#departmentForm #id').val(null);
     department.name = $('#departmentForm #name').val(null);
     department.managerId = $('#departmentForm #manager').val(null);
-    $('#departmentForm #manager').trigger('change'); 
-    
+    $('#departmentForm #manager').trigger('change');
+
     department.locationId = $('#departmentForm #location').val(null);
 
     $('#departmentForm #id').prop('readonly', false);
@@ -156,8 +156,8 @@ function editDepartmentForm(data) {
     department.id = $('#departmentForm #id').val(data.id);
     department.name = $('#departmentForm #name').val(data.name);
     department.managerId = $('#departmentForm #manager').val(data.managerId);
-    $('#departmentForm #manager').trigger('change'); 
-    
+    $('#departmentForm #manager').trigger('change');
+
     department.locationId = $('#departmentForm #location').val(data.locationId);
 
     $('#departmentForm #id').prop('readonly', true);
@@ -196,15 +196,10 @@ function deleteRow(data) {
                 success: function (res) {
                     table.destroy();
                     getAll();
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Data deleted',
-                        timer: 2000,
-                        timerProgressBar: true
-                    })
+                    sweetAlert("success","Data deleted");
                 },
                 error: function (e) {
-                    sweetAlert("Delete failed");
+                    sweetAlert("error", "Delete failed");
                 }
             });
         }
@@ -229,9 +224,10 @@ function insert() {
             $('#departmentModal').modal('hide');
             table.destroy();
             getAll();
+            sweetAlert("success","Data inserted");
         },
         error: function (e) {
-            sweetAlert("Failed save");
+            sweetAlert("error","Save failed: " + e.responseText);
         }
     });
 }
@@ -248,14 +244,19 @@ function update() {
             $('#departmentModal').modal('hide');
             table.destroy();
             getAll();
-            sweetAlert("Saved");
+            sweetAlert("success","Data changed");
         },
         error: function (e) {
-            sweetAlert("Failed save");
+            sweetAlert("error","Save failed: " + e.status);
         }
     });
 }
 
-function sweetAlert(message) {
-
+function sweetAlert(icon, message) {
+    Toast.fire({
+        icon: icon,
+        title: message,
+        timer: 2000,
+        timerProgressBar: true
+    })
 }

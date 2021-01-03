@@ -5,7 +5,7 @@
  */
 package com.mcc40.client.services;
 
-import com.mcc40.client.entities.Department;
+import com.mcc40.client.entities.Location;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,33 +21,33 @@ import org.springframework.http.HttpEntity;
  * @author Mochamad Yusuf
  */
 @Service
-public class DepartmentService {
+public class LocationService {
 
     @Autowired
     RestTemplate restTemplate;
 
-    @Value("${api.uri}/departments")
+    @Value("${api.uri}/locations")
     private String url;
 
-    public List<Department> search(String keyword) {
+    public List<Location> search(String keyword) {
         String url = this.url;
-        if (keyword != null && !keyword.isEmpty()) {
+       if (keyword != null && !keyword.isEmpty()) {
             url += "?keyword=" + keyword;
         }
-        ResponseEntity<List<Department>> response = restTemplate.exchange(url,
+        ResponseEntity<List<Location>> response = restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Department>>() {
+                new ParameterizedTypeReference<List<Location>>() {
         });
 
         return response.getBody();
     }
 
-    public boolean insert(Department department) {
-        System.out.println("insert");
+    public boolean insert(Location location) {
+       System.out.println("insert");
 
-        HttpEntity<String> request
-                = new HttpEntity<String>(department.getJSONMap());
+        HttpEntity<Location> request
+                = new HttpEntity<Location>(location);
 
         System.out.println(request.getBody());
 
@@ -62,11 +62,11 @@ public class DepartmentService {
         return response.getStatusCodeValue() == 200;
     }
 
-    public boolean update(Department department) {
+    public boolean update(Location location) {
         System.out.println("update");
 
-        HttpEntity<String> request
-                = new HttpEntity<String>(department.getJSONMap());
+        HttpEntity<Location> request
+                = new HttpEntity<Location>(location);
 
         System.out.println(request.getBody());
 

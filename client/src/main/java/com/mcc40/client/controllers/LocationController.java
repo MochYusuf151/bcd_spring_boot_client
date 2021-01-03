@@ -5,10 +5,10 @@
  */
 package com.mcc40.client.controllers;
 
-import com.mcc40.client.entities.Employee;
+import com.mcc40.client.entities.Location;
 import com.mcc40.client.entities.Employee;
 import com.mcc40.client.entities.Location;
-import com.mcc40.client.services.EmployeeService;
+import com.mcc40.client.services.LocationService;
 import com.mcc40.client.services.EmployeeService;
 import com.mcc40.client.services.LocationService;
 import java.util.List;
@@ -27,39 +27,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author aqira
  */
 @Controller
-@RequestMapping("employee")
-public class EmployeeController {
+@RequestMapping("location")
+public class LocationController {
 
     @Autowired
-    EmployeeService service;
+    LocationService service;
     @Autowired
     EmployeeService employeeService;
     LocationService locationService;
 
     @GetMapping
     public String table() {
-        return "/employee/table";
+        return "/location/table";
     }
 
     @GetMapping("get-all")
     public @ResponseBody
-    List<Employee> getAll() {
-        System.out.println("fetching employee table");
+    List<Location> getAll() {
+        System.out.println("fetching location table");
         return service.search(null);
     }
 
     @PostMapping
     public @ResponseBody
-    boolean insert(@RequestBody Employee employee) {
-        return service.insert(employee);
+    boolean insert(@RequestBody Location location) {
+        return service.insert(location);
     }
 
     @PutMapping
     public @ResponseBody
-    boolean update(@RequestBody Employee employee) {
+    boolean update(@RequestBody Location location) {
         System.out.println("update");
         
-        return service.update(employee);
+        return service.update(location);
     }
     
     @DeleteMapping

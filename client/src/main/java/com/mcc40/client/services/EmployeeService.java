@@ -6,7 +6,6 @@
 package com.mcc40.client.services;
 
 import com.mcc40.client.entities.Employee;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,33 +14,84 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpEntity;
 
 /**
  *
- * @author WAHYUK
+ * @author Mochamad Yusuf
  */
 @Service
 public class EmployeeService {
 
     @Autowired
-    private RestTemplate restTemplate;
+    RestTemplate restTemplate;
 
-    @Value("${api.uri}/employee")
-    private String uri;
+    @Value("${api.uri}/employees")
+    private String url;
 
     public List<Employee> search(String keyword) {
-        List<Employee> employees = new ArrayList<>();
-        String url = uri + "/search?keyword=";
-        if (keyword != null) {
-            url += keyword;
+        String url = this.url;
+       if (keyword != null && !keyword.isEmpty()) {
+            url += "?keyword=" + keyword;
         }
-
         ResponseEntity<List<Employee>> response = restTemplate.exchange(url,
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<Employee>>() {
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Employee>>() {
         });
-        employees = response.getBody();
 
-        return employees;
+        return response.getBody();
     }
+
+    public boolean insert(Employee employee) {
+        System.out.println("insert");
+
+        HttpEntity<String> request
+                = new HttpEntity<String>(employee.getJSONMap());
+
+        System.out.println(request.getBody());
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                request,
+                String.class
+        );
+        System.out.println("response: " + response.getBody());
+
+        return response.getStatusCodeValue() == 200;
+    }
+
+    public boolean update(Employee employee) {
+        System.out.println("update");
+
+        HttpEntity<String> request
+                = new HttpEntity<String>(employee.getJSONMap());
+
+        System.out.println(request.getBody());
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                request,
+                String.class
+        );
+        System.out.println("response: " + response.getBody());
+
+        return response.getStatusCodeValue() == 200;
+    }
+
+    public boolean delete(Integer id) {
+        String url = this.url + "?id=" + id;
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                null,
+                String.class
+        );
+
+        return response.getStatusCodeValue() == 200;
+    }
+
 }
