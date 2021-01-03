@@ -4,6 +4,10 @@ body{
     /*font-family: 'Roboto', sans-serif;*/
 }
 
+.bg-login{
+    background-color: #007bff;
+}
+
 ._wrapper{
     height: 100vh;
     display: flex; 

@@ -30,6 +30,7 @@ public class DashboardController {
             System.out.println(authority);
         }
         model.addAttribute("profile", auth);
+        
         return "/dashboard";
     }
 }

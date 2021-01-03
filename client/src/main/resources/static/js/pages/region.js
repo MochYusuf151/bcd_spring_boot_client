@@ -58,7 +58,14 @@ function initDataTable() {
                                     + '<button id="delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
                         }
                     }
-                ]
+                ],
+                "columnDefs": [
+                    {
+                        "targets": 2,
+                        "width": 150
+                    }
+                ],
+                fixedColumns: true
             }
     );
 
