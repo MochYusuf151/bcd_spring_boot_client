@@ -47,8 +47,8 @@ public class LocationService {
     public boolean insert(Location location) {
        System.out.println("insert");
 
-        HttpEntity<Location> request
-                = new HttpEntity<Location>(location);
+        HttpEntity<String> request
+                = new HttpEntity<String>(location.getJSONMap());
 
         System.out.println(request.getBody());
 
@@ -66,8 +66,8 @@ public class LocationService {
     public boolean update(Location location) {
         System.out.println("update");
 
-        HttpEntity<Location> request
-                = new HttpEntity<Location>(location);
+        HttpEntity<String> request
+                = new HttpEntity<String>(location.getJSONMap());
 
         System.out.println(request.getBody());
 

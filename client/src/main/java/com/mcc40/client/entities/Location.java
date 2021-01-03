@@ -15,7 +15,7 @@ import org.json.JSONObject;
  * @author Mochamad Yusuf
  */
 @Data
-public class Location{
+public class Location {
 
     private Integer id;
     private String streetAddress;
@@ -23,17 +23,22 @@ public class Location{
     private String city;
     private String stateProvince;
     private String country;
-    
+
     public String getJSONMap() {
         JSONObject locationJson = new JSONObject();
+        
+        locationJson.put("id", getId());
+        locationJson.put("streetAddress", getStreetAddress());
+        locationJson.put("postalCode", getPostalCode());
+        locationJson.put("city", getCity());
+        locationJson.put("stateProvince", getStateProvince());
 
+        Map countryJson = new LinkedHashMap();
         if (getCountry() != null) {
-            Map managerJson = new LinkedHashMap();
-            managerJson.put("id", getCountry());
-            locationJson.put("country", managerJson);
+            countryJson.put("id", getCountry());
         }
+        locationJson.put("country", countryJson);
 
         return locationJson.toString();
     }
 }
-

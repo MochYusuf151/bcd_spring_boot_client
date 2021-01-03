@@ -1,34 +1,37 @@
 <div  th:fragment="table" class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Countrys</h1>
-    <p class="mb-4">Countrys berisi data dari tabel "Countrys" dari database "hr".</p>
+    <h1 class="h3 mb-2 text-gray-800">Locations</h1>
+    <p class="mb-4">Locations berisi data dari tabel "Locations" dari database "hr".</p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-6 pt-2">
-                    <span class="font-weight-bold text-primary">Countries table</span>
+                    <span class="font-weight-bold text-primary">Locations table</span>
                 </div>
                 <div class="col-6">
                     <button class="btn btn-success float-right"
                             id="addRow"
-                            data-toggle="modal" data-target="#countryModal">
+                            data-toggle="modal" data-target="#locationModal">
                         <i class="fas fa-plus"></i>
-                        New Country
+                        New Location
                     </button>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="countryTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="locationTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Region</th>
+                            <th>Id</th>
+                            <th>Street Address</th>
+                            <th>Postal Code</th>
+                            <th>City</th>
+                            <th>State Province</th>
+                            <th>Country</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

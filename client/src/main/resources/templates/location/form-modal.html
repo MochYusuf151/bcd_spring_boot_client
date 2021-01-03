@@ -1,0 +1,69 @@
+
+
+<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalTitle"
+     aria-hidden="true"
+     th:fragment="form-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="locationModalTitle">Location Form</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="locationForm" class="needs-validation mx-4" novalidate>
+
+                    <!--Id-->
+                    <div class="form-group">
+                        <label for="id" class="required">Id</label>
+                        <input type="text" class ="form-control" name="id" id="id" placeholder="Enter id" required>
+                        <div class="invalid-feedback">Please enter the Id</div>
+                    </div>
+
+                    <!--Street Address-->
+                    <div class="form-group">
+                        <label for="streetAddress" class="required">Street Address</label>
+                        <input type="text" class ="form-control" name="streetAddress" id="streetAddress" placeholder="Enter streetAddress" required>
+                        <div class="invalid-feedback">Please enter the Street Address</div>
+                    </div>
+
+                    <!--Postal Code-->
+                    <div class="form-group">
+                        <label for="postalCode" class="required">Postal Code</label>
+                        <input type="text" class ="form-control" name="postalCode" id="postalCode" placeholder="Enter postalCode" required>
+                        <div class="invalid-feedback">Please enter the Postal Code</div>
+                    </div>
+
+                    <!--City-->
+                    <div class="form-group">
+                        <label for="city" class="required">City</label>
+                        <input type="text" class ="form-control" name="city" id="city" placeholder="Enter city" required>
+                        <div class="invalid-feedback">Please enter the City</div>
+                    </div>
+
+                    <!--State Province-->
+                    <div class="form-group">
+                        <label for="stateProvince">State Province</label>
+                        <input type="text" class ="form-control" name="stateProvince" id="stateProvince" placeholder="Enter stateProvince">
+                        <div class="invalid-feedback">Please enter the State Province</div>
+                    </div>
+                    
+                    <!--Country-->
+                    <div class="form-group">
+                        <label for="country">Country</label>
+
+                        <select class="form-control js-example-basic-single" name="country" id="country" 
+                                data-width="100%" data-placeholder="Select Country">
+                        </select>
+                    </div>
+
+                    <div id="action-button" class="form-group text-right pt-4 border-top">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -33,9 +33,6 @@ public class LocationController {
 
     @Autowired
     LocationService service;
-    @Autowired
-    EmployeeService employeeService;
-    LocationService locationService;
 
     @GetMapping
      public String table(Model model) {
