@@ -1,0 +1,53 @@
+
+
+<div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalTitle"
+     aria-hidden="true"
+     th:fragment="form-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="jobModalTitle">Job Form</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="jobForm" class="needs-validation mx-4" novalidate>
+
+                    <!--Id-->
+                    <div class="form-group">
+                        <label for="id" class="required">Id</label>
+                        <input type="text" class ="form-control" name="id" id="id" placeholder="Enter Id" required>
+                        <div class="invalid-feedback">Please enter the Id</div>
+                    </div>
+
+                    <!--Title-->
+                    <div class="form-group">
+                        <label for="title" class="required">Title</label>
+                        <input type="text" class ="form-control" name="title" id="title" placeholder="Enter Title" required>
+                        <div class="invalid-feedback">Please enter the Title</div>
+                    </div>
+
+                    <!--Max Salary-->
+                    <div class="form-group">
+                        <label for="maxSalary" class="required">Max Salary</label>
+                        <input type="text" class ="form-control" name="maxSalary" id="maxSalary" placeholder="Enter Max Salary" required>
+                        <div class="invalid-feedback">Please enter the Max Salary</div>
+                    </div>
+
+                    <!--Min Salary-->
+                    <div class="form-group">
+                        <label for="minSalary" class="required">Min Salary</label>
+                        <input type="text" class ="form-control" name="minSalary" id="minSalary" placeholder="Enter Min Salary" required>
+                        <div class="invalid-feedback">Please enter the Min Salary</div>
+                    </div>
+
+                    <div id="action-button" class="form-group text-right pt-4 border-top">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,42 +6,72 @@
 package com.mcc40.client.controllers;
 
 import com.mcc40.client.entities.Job;
+import com.mcc40.client.entities.Employee;
 import com.mcc40.client.services.JobService;
+import com.mcc40.client.services.EmployeeService;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author aqira
+ * @author Mochamad Yusuf
  */
 @Controller
 @RequestMapping("job")
 public class JobController {
 
+    @Autowired
     JobService service;
 
-    @Autowired
-    public JobController(JobService service) {
-        this.service = service;
+    @GetMapping
+    public String table(Model model) {
+        model.addAttribute("table", "/job/table.html");
+        model.addAttribute("tableFrag", "table");
+        model.addAttribute("modal", "/job/form-modal.html");
+        model.addAttribute("modalFrag", "form-modal");
+        model.addAttribute("javascript", "/js/pages/job.js");
+        
+        model.addAttribute("htmlTitle", "Job");
+
+        return "/layout/table-page";
     }
 
-//    @GetMapping("")
-//    public String index(Model model) {
-//        List<Job> jobs = service.getAll();
-//        model.addAttribute("jobs", jobs);
-//        return "index";
-//    }
+    @GetMapping("get-all")
+    public @ResponseBody
+    List<Job> getAll() {
+        System.out.println("fetching job table");
+        return service.search(null);
+    }
 
-    @GetMapping("")
-    public String search(String keyword, Model model) {
-        List<Job> jobs = service.search(keyword);
-        model.addAttribute("jobs", jobs);
-        return "index";
+    @PostMapping
+    public @ResponseBody
+    boolean insert(@RequestBody Job job) {
+        return service.insert(job);
+    }
+
+    @PutMapping
+    public @ResponseBody
+    boolean update(@RequestBody Job job) {
+        System.out.println("update");
+
+        return service.update(job);
+    }
+
+    @DeleteMapping
+    public @ResponseBody
+    boolean delete(String id) {
+        System.out.println("delete " + id);
+
+        return service.delete(id);
     }
 
 }

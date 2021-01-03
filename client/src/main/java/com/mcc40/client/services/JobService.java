@@ -14,45 +14,84 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
 
 /**
  *
- * @author aqira
+ * @author Mochamad Yusuf
  */
 @Service
 public class JobService {
 
+    @Autowired
     RestTemplate restTemplate;
 
-    @Autowired
-    public JobService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
-    @Value("${api.uri}")
+    @Value("${api.uri}/jobs")
     private String url;
 
     public List<Job> search(String keyword) {
-        String uri = this.url + "job";
-        if (keyword != null) {
-            uri += "?keyword=" + keyword;
+        String url = this.url;
+        if (keyword != null && !keyword.isEmpty()) {
+            url += "?keyword=" + keyword;
         }
-        ResponseEntity<List<Job>> response = restTemplate.exchange(uri,
+        ResponseEntity<List<Job>> response = restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Job>>() {
         });
-        for (Job job : response.getBody()) {
-            System.out.print(job.getId());
-            System.out.print(job.getTitle());
-            System.out.print(job.getMaxSalary());
-            System.out.println(job.getMinSalary());
-        }
+
         return response.getBody();
     }
 
-    public String insert(Job job) {
-//        String url = this.url + 
-        return "";
+    public boolean insert(Job job) {
+        System.out.println("insert");
+
+        HttpEntity<Job> request
+                = new HttpEntity<Job>(job);
+
+        System.out.println(request.getBody());
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                request,
+                String.class
+        );
+        System.out.println("response: " + response.getBody());
+
+        return response.getStatusCodeValue() == 200;
     }
+
+    public boolean update(Job job) {
+        System.out.println("update");
+
+        HttpEntity<Job> request
+                = new HttpEntity<Job>(job);
+
+        System.out.println(request.getBody());
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                request,
+                String.class
+        );
+        System.out.println("response: " + response.getBody());
+
+        return response.getStatusCodeValue() == 200;
+    }
+
+    public boolean delete(String id) {
+        String url = this.url + "?id=" + id;
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                null,
+                String.class
+        );
+
+        return response.getStatusCodeValue() == 200;
+    }
+
 }

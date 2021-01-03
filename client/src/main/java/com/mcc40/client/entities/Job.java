@@ -13,8 +13,8 @@ import lombok.Data;
  */
 @Data
 public class Job {
-    private String id,
-            title;
-    private int maxSalary,
-            minSalary;
+    private String id;
+    private String title;
+    private int maxSalary;
+    private int minSalary;
 }
