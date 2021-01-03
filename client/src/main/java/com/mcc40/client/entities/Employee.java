@@ -54,6 +54,6 @@ public class Employee {
             departmentJson.put("department", departmentJson);
         }
 
-        return departmentJson.toString();
+        return employeeJson.toString();
     }
 }

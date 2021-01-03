@@ -31,7 +31,7 @@ public class EmployeeService {
 
     public List<Employee> search(String keyword) {
         String url = this.url;
-       if (keyword != null && !keyword.isEmpty()) {
+        if (keyword != null && !keyword.isEmpty()) {
             url += "?keyword=" + keyword;
         }
         ResponseEntity<List<Employee>> response = restTemplate.exchange(url,
@@ -39,7 +39,7 @@ public class EmployeeService {
                 null,
                 new ParameterizedTypeReference<List<Employee>>() {
         });
-
+        System.out.println(response.getBody());
         return response.getBody();
     }
 

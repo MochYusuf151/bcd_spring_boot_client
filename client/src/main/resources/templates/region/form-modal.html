@@ -1,42 +1,31 @@
 
 
-<div class="modal fade" id="regionModal" tabindex="-1" role="dialog" aria-labelledby="regionModalTitle"
+<div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="departmentModalTitle"
      aria-hidden="true"
      th:fragment="form-modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="regionModalTitle">Region Form</h5>
+                <h5 class="modal-title" id="departmentModalTitle">Department Form</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="regionForm" class="needs-validation mx-4" novalidate>
+                <form id="departmentForm" class="needs-validation mx-4" novalidate>
+                    
+                    <!--Id-->
                     <div class="form-group">
                         <label for="id" class="required">ID</label>
-                        <input type="number" class ="form-control" name="id" id="id" placeholder="Enter region id" required>
-                        <div class="invalid-feedback">Please enter the region id</div>
+                        <input type="number" class ="form-control" name="id" id="id" placeholder="Enter department id" required>
+                        <div class="invalid-feedback">Please enter the department id</div>
                     </div>
 
+                    <!--Name-->
                     <div class="form-group">
                         <label for="name" class="required">Name</label>
-                        <input type="text" class ="form-control" name="name" id="name" placeholder="Enter region name" required>
-                        <div class="invalid-feedback">Please enter the region name</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="manager">Manager</label>
-
-                        <select class="form-control js-example-basic-single" name="manager" id="manager" 
-                                data-width="100%" data-placeholder="Select Manager">
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="location" class="required">Location ID</label>
-                        <input type="number" class ="form-control" name="location" id="location" placeholder="Enter location id" required>
-                        <div class="invalid-feedback">Please enter region's location ID</div>
+                        <input type="text" class ="form-control" name="name" id="name" placeholder="Enter department name" required>
+                        <div class="invalid-feedback">Please enter the department name</div>
                     </div>
 
                     <div id="action-button" class="form-group text-right pt-4 border-top">

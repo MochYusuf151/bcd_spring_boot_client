@@ -7,10 +7,8 @@ package com.mcc40.client.controllers;
 
 import com.mcc40.client.entities.Department;
 import com.mcc40.client.entities.Employee;
-import com.mcc40.client.entities.Location;
 import com.mcc40.client.services.DepartmentService;
 import com.mcc40.client.services.EmployeeService;
-import com.mcc40.client.services.LocationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +31,9 @@ public class DepartmentController {
 
     @Autowired
     DepartmentService service;
+    
+    @Autowired
+    EmployeeService employeeService;
 
     @GetMapping
     public String table(Model model) {
@@ -41,6 +42,8 @@ public class DepartmentController {
         model.addAttribute("modal", "/department/form-modal.html");
         model.addAttribute("modalFrag", "form-modal");
         model.addAttribute("javascript", "/js/pages/department.js");
+        
+        model.addAttribute("htmlTitle", "Department");
 
         return "/layout/table-page";
     }

@@ -39,6 +39,7 @@ public class LocationService {
                 null,
                 new ParameterizedTypeReference<List<Location>>() {
         });
+        System.out.println("response: " + response.getBody());
 
         return response.getBody();
     }

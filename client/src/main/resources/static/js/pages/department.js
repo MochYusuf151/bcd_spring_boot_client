@@ -2,25 +2,12 @@ var table;
 var department = {};
 var state;
 
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-right',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-})
 
 $(document).ready(function () {
-    getAll();
-    initDropDown();
-
-    $('#departmentForm #manager').select2({
-        theme: "bootstrap"
-    });
+    initDataTable();
+    initSelect2();
+    
+    $('.sidebar #department').addClass('active')
 
     $('#addRow').on('click', function () {                              // Assign add onclick action
         addDepartmentForm();
@@ -54,10 +41,10 @@ $(document).ready(function () {
     });
 });
 
-function initDropDown() {
+function initSelect2() {
     $.ajax({
-        url: '/employee/get-all',
-        type: 'get',
+        url: '/employee/get-employees',
+        type: 'GET',
 
         success: function (data) {
             var options = "";
@@ -66,11 +53,12 @@ function initDropDown() {
                 options += '<option value="' + value.id + '">' + value.firstName + " " + value.lastName + "</option>\n";
             });
 
-            console.log(options);
-
             $("#departmentForm #manager").append(options);
-
         }
+    });
+    
+    $('#departmentForm #manager').select2({
+        theme: "bootstrap"
     });
 
     $.ajax({
@@ -87,16 +75,18 @@ function initDropDown() {
                         + "</option>\n";
             });
 
-            console.log(options);
-
             $("#departmentForm #location").append(options);
 
         }
     });
+    
+    $('#departmentForm #location').select2({
+        theme: "bootstrap"
+    });
 
 }
 
-function getAll() {
+function initDataTable() {
 
     table = $('#departmentTable').DataTable(
             {
@@ -144,6 +134,7 @@ function infoDepartmentForm(data) {
     $('#departmentForm #manager').trigger('change');
 
     department.locationId = $('#departmentForm #location').val(data.locationId);
+    $('#departmentForm #location').trigger('change');
 
     $('#departmentForm #id').prop('readonly', true);
     $('#departmentForm #name').prop('readonly', true);
@@ -161,6 +152,7 @@ function addDepartmentForm() {
     $('#departmentForm #manager').trigger('change');
 
     department.locationId = $('#departmentForm #location').val(null);
+    $('#departmentForm #location').trigger('change');
 
     $('#departmentForm #id').prop('readonly', false);
     $('#departmentForm #name').prop('readonly', false);
@@ -178,6 +170,7 @@ function editDepartmentForm(data) {
     $('#departmentForm #manager').trigger('change');
 
     department.locationId = $('#departmentForm #location').val(data.locationId);
+    $('#departmentForm #location').trigger('change');
 
     $('#departmentForm #id').prop('readonly', true);
     $('#departmentForm #name').prop('readonly', false);
@@ -214,7 +207,7 @@ function deleteRow(data) {
                 data: null,
                 success: function (res) {
                     table.destroy();
-                    getAll();
+                    initDataTable();
                     sweetAlert("success", "Data deleted");
                 },
                 error: function (e) {
@@ -242,7 +235,7 @@ function insert() {
         success: function (res) {
             $('#departmentModal').modal('hide');
             table.destroy();
-            getAll();
+            initDataTable();
             sweetAlert("success", "Data inserted");
         },
         error: function (e) {
@@ -262,7 +255,7 @@ function update() {
         success: function (res) {
             $('#departmentModal').modal('hide');
             table.destroy();
-            getAll();
+            initDataTable();
             sweetAlert("success", "Data changed");
         },
         error: function (e) {
@@ -270,6 +263,18 @@ function update() {
         }
     });
 }
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 
 function sweetAlert(icon, message) {
     Toast.fire({

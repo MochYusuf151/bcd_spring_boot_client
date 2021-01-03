@@ -5,7 +5,6 @@
  */
 package com.mcc40.client.entities;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.Data;
@@ -25,9 +24,8 @@ public class Location{
     private String stateProvince;
     private String country;
     
-    @JsonAnyGetter
-    public Map<String, Object> getJSONMap() {
-        Map locationJson = new LinkedHashMap();
+    public String getJSONMap() {
+        JSONObject locationJson = new JSONObject();
 
         if (getCountry() != null) {
             Map managerJson = new LinkedHashMap();
@@ -35,7 +33,7 @@ public class Location{
             locationJson.put("country", managerJson);
         }
 
-        return locationJson;
+        return locationJson.toString();
     }
 }
 
