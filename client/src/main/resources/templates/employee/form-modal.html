@@ -1,0 +1,112 @@
+
+
+<div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeModalTitle"
+     aria-hidden="true"
+     th:fragment="form-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="employeeModalTitle">Employee Form</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="employeeForm" class="needs-validation mx-4" novalidate>
+
+
+
+                    <!--Id-->
+                    <div class="form-group">
+                        <label for="id" class="required">Id</label>
+                        <input type="text" class ="form-control" name="id" id="id" placeholder="Enter Id" required>
+                        <div class="invalid-feedback">Please enter the Id</div>
+                    </div>
+
+                    <!--First Name-->
+                    <div class="form-group">
+                        <label for="firstName" class="required">First Name</label>
+                        <input type="text" class ="form-control" name="firstName" id="firstName" placeholder="Enter First Name" required>
+                        <div class="invalid-feedback">Please enter the First Name</div>
+                    </div>
+
+                    <!--Last Name-->
+                    <div class="form-group">
+                        <label for="lastName" class="required">Last Name</label>
+                        <input type="text" class ="form-control" name="lastName" id="lastName" placeholder="Enter Last Name" required>
+                        <div class="invalid-feedback">Please enter the Last Name</div>
+                    </div>
+
+                    <!--Hire Date-->
+                    <div class="form-group">
+                        <label for="hireDate" class="required">Hire Date</label>
+                        <input type="text" class ="form-control" name="hireDate" id="hireDate" placeholder="Enter Hire Date" required>
+                        <div class="invalid-feedback">Please enter the Hire Date</div>
+                    </div>
+
+                    <!--Phone Number-->
+                    <div class="form-group">
+                        <label for="phoneNumber" class="required">Phone Number</label>
+                        <input type="text" class ="form-control" name="phoneNumber" id="phoneNumber" placeholder="Enter Phone Number" required>
+                        <div class="invalid-feedback">Please enter the Phone Number</div>
+                    </div>
+
+                    <!--Salary-->
+                    <div class="form-group">
+                        <label for="salary" class="required">Salary</label>
+                        <input type="text" class ="form-control" name="salary" id="salary" placeholder="Enter Salary" required>
+                        <div class="invalid-feedback">Please enter the Salary</div>
+                    </div>
+
+                    <!--Email-->
+                    <div class="form-group">
+                        <label for="email" class="required">Email</label>
+                        <input type="text" class ="form-control" name="email" id="email" 
+                               placeholder="Enter Email" required>
+                        <div class="invalid-feedback">Please enter the Email</div>
+                    </div>
+
+                    <!--Commission Pct-->
+                    <div class="form-group">
+                        <label for="commissionPct">Commission Pct</label>
+                        <input type="text" class ="form-control" name="commissionPct" 
+                               id="commissionPct" placeholder="Enter Commission Pct">
+                        <div class="invalid-feedback">Please enter the Commission Pct</div>
+                    </div>
+
+
+                    <!--Job-->
+                    <div class="form-group">
+                        <label for="job" class="required">Job</label>
+                        <select type="text" class ="form-control js-example-basic-single required" 
+                                name="job" id="job" data-width="100%" data-placeholder="Select  Job" required>
+
+                        </select>
+                    </div>
+
+                    <!--Manager-->
+                    <div class="form-group">
+                        <label for="manager" class="required">Manager</label>
+                        <select type="text" class ="form-control js-example-basic-single" name="manager" id="manager" data-width="100%" data-placeholder="Select  Manager" required>
+
+                        </select>
+                    </div>
+
+                    <!--Department-->
+                    <div class="form-group">
+                        <label for="department" class="required">Department</label>
+                        <select type="text" class ="form-control js-example-basic-single" 
+                                name="department" id="department" data-width="100%" data-placeholder="Select  Department" >
+                        </select>
+                    </div>
+
+
+                    <div id="action-button" class="form-group text-right pt-4 border-top">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

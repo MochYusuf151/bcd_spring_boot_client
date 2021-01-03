@@ -40,19 +40,15 @@ public class Employee {
 
         JSONObject jobJson = new JSONObject();
         jobJson.put("id", getJob());
-        if (getJob() != null) {
-            employeeJson.put("job", jobJson);
-        }
+        employeeJson.put("job", jobJson);
+
         JSONObject managerJson = new JSONObject();
         managerJson.put("id", getManager());
-        if (getManager() != null) {
-            employeeJson.put("manager", managerJson);
-        }
+        employeeJson.put("manager", managerJson);
+
         JSONObject departmentJson = new JSONObject();
         departmentJson.put("id", getDepartment());
-        if (getDepartment() != null) {
-            departmentJson.put("department", departmentJson);
-        }
+        employeeJson.put("department", departmentJson);
 
         return employeeJson.toString();
     }

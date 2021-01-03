@@ -6,9 +6,9 @@
 package com.mcc40.client.controllers;
 
 import com.mcc40.client.entities.Employee;
-import com.mcc40.client.entities.Location;
+import com.mcc40.client.entities.Employee;
 import com.mcc40.client.services.EmployeeService;
-import com.mcc40.client.services.LocationService;
+import com.mcc40.client.services.EmployeeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author aqira
+ * @author Mochamad Yusuf
  */
 @Controller
 @RequestMapping("employee")
@@ -31,9 +31,6 @@ public class EmployeeController {
 
     @Autowired
     EmployeeService service;
-    
-    @Autowired
-    LocationService locationService;
 
     @GetMapping
     public String table(Model model) {
@@ -48,24 +45,22 @@ public class EmployeeController {
         return "/layout/table-page";
     }
 
-    @GetMapping("get-employees")
+    @GetMapping("get-all")
     public @ResponseBody
-    Iterable<Employee> getAll() {
+    List<Employee> getAll() {
         System.out.println("fetching employee table");
         return service.search(null);
     }
 
     @PostMapping
     public @ResponseBody
-    boolean insert(@RequestBody Employee employee
-    ) {
+    boolean insert(@RequestBody Employee employee) {
         return service.insert(employee);
     }
 
     @PutMapping
     public @ResponseBody
-    boolean update(@RequestBody Employee employee
-    ) {
+    boolean update(@RequestBody Employee employee) {
         System.out.println("update");
 
         return service.update(employee);
@@ -73,8 +68,7 @@ public class EmployeeController {
 
     @DeleteMapping
     public @ResponseBody
-    boolean delete(Integer id
-    ) {
+    boolean delete(Integer id) {
         System.out.println("delete " + id);
 
         return service.delete(id);
