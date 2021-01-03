@@ -6,18 +6,21 @@
 package com.mcc40.client.controllers;
 
 import com.mcc40.client.entities.Region;
+import com.mcc40.client.entities.Employee;
+import com.mcc40.client.entities.Location;
 import com.mcc40.client.services.RegionService;
+import com.mcc40.client.services.EmployeeService;
+import com.mcc40.client.services.LocationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -27,70 +30,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("region")
 public class RegionController {
 
+    @Autowired
     RegionService service;
 
-    @Autowired
-    public RegionController(RegionService service) {
-        this.service = service;
+    @GetMapping
+    public String table() {
+        return "/region/table";
     }
 
-    @GetMapping("")
-    public String search(String keyword, Model model) {
-        List<Region> regions = service.search(keyword);
-        model.addAttribute("regions", regions);
+    @GetMapping("get-all")
+    public @ResponseBody
+    List<Region> getAll() {
+        System.out.println("fetching region table");
+        return service.search(null);
+    }
+
+    @PostMapping
+    public @ResponseBody
+    boolean insert(@RequestBody Region region) {
+        return service.insert(region);
+    }
+
+    @PutMapping
+    public @ResponseBody
+    boolean update(@RequestBody Region region) {
+        System.out.println("update");
         
-        model.addAttribute("htmlTitle", "Region Table");
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        for (GrantedAuthority authority : auth.getAuthorities()) {
-            System.out.println(authority.getAuthority());
-            System.out.println(authority);
-        }
-        model.addAttribute("profile", auth);
-
-        return "region/region_table";
+        return service.update(region);
     }
-
-    @GetMapping("modify")
-    public String openSavePage(Model model) {
-        return "region/region_edit";
-    }
-
-    @PostMapping("post")
-    public String savePost(String id, String name, Model model) {
-        System.out.println("[POST] region: " + id + " | " + name);
-        Region region = new Region();
-        region.setId(Integer.parseInt(id));
-        region.setName(name);
-
-        System.out.println(region);
-        service.savePost(region);
-        return "redirect:../region";
-    }
-
-    @PostMapping("update")
-    public String savePut(Integer id, String name, Model model) {
-        System.out.println("Updating");
-        System.out.println("[PUT] region: " + id + " | " + name);
-        Region region = new Region();
-        region.setId(id);
-        if (!name.equals("")) {
-            region.setName(name);
-        }
-
-        System.out.println(region);
-        service.savePut(region);
-        return "redirect:../region";
-    }
-
-    @PostMapping("delete")
-    public String delete(String id, Model model) {
-        System.out.println("[DELETE] region: " + id);
-
-        service.deleteById(Integer.parseInt(id));
-
-        return "redirect:../region";
+    
+    @DeleteMapping
+    public @ResponseBody
+    boolean delete(Integer id) {
+        System.out.println("delete " + id);
+        
+        return service.delete(id);
     }
 
 }

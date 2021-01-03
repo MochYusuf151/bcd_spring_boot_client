@@ -32,9 +32,6 @@ public class DepartmentController {
 
     @Autowired
     DepartmentService service;
-    @Autowired
-    EmployeeService employeeService;
-    LocationService locationService;
 
     @GetMapping
     public String table() {

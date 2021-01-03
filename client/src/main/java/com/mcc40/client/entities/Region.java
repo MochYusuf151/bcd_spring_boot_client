@@ -5,6 +5,8 @@
  */
 package com.mcc40.client.entities;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import lombok.Data;
 
 /**
@@ -13,6 +15,16 @@ import lombok.Data;
  */
 @Data
 public class Region {
+
     private Integer id;
     private String name;
+
+    public String getJSONMap() {
+        Map departmentJson = new LinkedHashMap();
+
+        departmentJson.put("id", getId());
+        departmentJson.put("name", getName());
+
+        return departmentJson.toString();
+    }
 }

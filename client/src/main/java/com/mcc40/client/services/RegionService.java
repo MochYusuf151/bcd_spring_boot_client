@@ -14,12 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -28,95 +23,75 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Service
 public class RegionService {
 
-    RestTemplate restTemplate;
-
     @Autowired
-    public RegionService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    RestTemplate restTemplate;
 
     @Value("${api.uri}/regions")
     private String url;
 
     public List<Region> search(String keyword) {
-        String uri = this.url;
-        if (keyword != null) {
-            uri += "?keyword=" + keyword;
+        String url = this.url;
+        if (keyword != null && !keyword.isEmpty()) {
+            url += "?keyword=" + keyword;
         }
-        ResponseEntity<List<Region>> response = restTemplate.exchange(uri,
+        ResponseEntity<List<Region>> response = restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Region>>() {
         });
-        for (Region region : response.getBody()) {
-            System.out.print(region.getId());
-            System.out.print(region.getName());
-//            System.out.print(region.getManager_id());
-//            System.out.println(region.getLocation_id());
-        }
-        return response.getBody();
-    }
-
-    public String savePost(Region region) {
-        String uri = this.url;
-
-        // Http Header
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        
-         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        // Json Object
-        JSONObject regionJson = new JSONObject();
-
-        regionJson.put("id", region.getId());
-        regionJson.put("name", region.getName());
-
-        //Http Entity
-        HttpEntity<String> request
-                = new HttpEntity<String>(regionJson.toString(), headers);
-
-        System.out.println(regionJson.toString());
-
-        ResponseEntity<String> response = restTemplate.postForEntity(uri, request, String.class);
 
         return response.getBody();
     }
 
-    public String savePut(Region region) {
-        String uri = this.url;
+    public boolean insert(Region region) {
+        System.out.println("insert");
 
-        // Http Header
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        // Json Object
-        JSONObject regionJson = new JSONObject();
-
-        regionJson.put("id", region.getId());
-        if (region.getName() != null) {
-            regionJson.put("name", region.getName());
-        }
-
-        //Http Entity
         HttpEntity<String> request
-                = new HttpEntity<String>(regionJson.toString(), headers);
+                = new HttpEntity<String>(region.getJSONMap());
 
-        System.out.println(regionJson.toString());
+        System.out.println(request.getBody());
 
-        restTemplate.put(uri, request);
-        
-        System.out.println("put success");
-        return "Success";
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                request,
+                String.class
+        );
+        System.out.println("response: " + response.getBody());
+
+        return response.getStatusCodeValue() == 200;
     }
-    
-    public String deleteById(Integer id) {
-        String uri = this.url + "?id=" + id;
 
-        restTemplate.delete(uri, String.class);
+    public boolean update(Region region) {
+        System.out.println("update");
 
-        return "Success";
+        HttpEntity<String> request
+                = new HttpEntity<String>(region.getJSONMap());
+
+        System.out.println(request.getBody());
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                request,
+                String.class
+        );
+        System.out.println("response: " + response.getBody());
+
+        return response.getStatusCodeValue() == 200;
     }
-    
+
+    public boolean delete(Integer id) {
+        String url = this.url + "?id=" + id;
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                null,
+                String.class
+        );
+
+        return response.getStatusCodeValue() == 200;
+    }
 
 }
