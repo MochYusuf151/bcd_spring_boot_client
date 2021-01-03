@@ -41,6 +41,8 @@ public class RegionController {
         model.addAttribute("modal", "/region/form-modal.html");
         model.addAttribute("modalFrag", "form-modal");
         model.addAttribute("javascript", "/js/pages/region.js");
+        
+        model.addAttribute("htmlTitle", "Region");
 
         return "/layout/table-page";
     }

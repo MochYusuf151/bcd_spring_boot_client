@@ -43,7 +43,7 @@ $(document).ready(function () {
 
 function initSelect2() {
     $.ajax({
-        url: '/employee/get-employees',
+        url: '/employee/get-all',
         type: 'GET',
 
         success: function (data) {
