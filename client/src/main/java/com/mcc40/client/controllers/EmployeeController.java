@@ -11,6 +11,9 @@ import com.mcc40.client.services.EmployeeService;
 import com.mcc40.client.services.EmployeeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +44,14 @@ public class EmployeeController {
         model.addAttribute("javascript", "/js/pages/employee.js");
         
         model.addAttribute("htmlTitle", "Employee");
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        for (GrantedAuthority authority : auth.getAuthorities()) {
+            System.out.println(authority.getAuthority());
+            System.out.println(authority);
+        }
+        model.addAttribute("profile", auth);
 
         return "/layout/table-page";
     }

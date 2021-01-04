@@ -13,6 +13,9 @@ import com.mcc40.client.services.EmployeeService;
 import com.mcc40.client.services.LocationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,14 +38,22 @@ public class RegionController {
     RegionService service;
 
     @GetMapping
-     public String table(Model model) {
+    public String table(Model model) {
         model.addAttribute("table", "/region/table.html");
         model.addAttribute("tableFrag", "table");
         model.addAttribute("modal", "/region/form-modal.html");
         model.addAttribute("modalFrag", "form-modal");
         model.addAttribute("javascript", "/js/pages/region.js");
-        
+
         model.addAttribute("htmlTitle", "Region");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        for (GrantedAuthority authority : auth.getAuthorities()) {
+            System.out.println(authority.getAuthority());
+            System.out.println(authority);
+        }
+        model.addAttribute("profile", auth);
 
         return "/layout/table-page";
     }
@@ -64,15 +75,15 @@ public class RegionController {
     public @ResponseBody
     boolean update(@RequestBody Region region) {
         System.out.println("update");
-        
+
         return service.update(region);
     }
-    
+
     @DeleteMapping
     public @ResponseBody
     boolean delete(Integer id) {
         System.out.println("delete " + id);
-        
+
         return service.delete(id);
     }
 

@@ -11,6 +11,9 @@ import com.mcc40.client.services.DepartmentService;
 import com.mcc40.client.services.EmployeeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,8 +42,16 @@ public class DepartmentController {
         model.addAttribute("modal", "/department/form-modal.html");
         model.addAttribute("modalFrag", "form-modal");
         model.addAttribute("javascript", "/js/pages/department.js");
-        
+
         model.addAttribute("htmlTitle", "Department");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        for (GrantedAuthority authority : auth.getAuthorities()) {
+            System.out.println(authority.getAuthority());
+            System.out.println(authority);
+        }
+        model.addAttribute("profile", auth);
 
         return "/layout/table-page";
     }
